@@ -1,26 +1,107 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(96.8% 0.009 85);
+  --surface: oklch(98.9% 0.006 85);
+  --foreground: oklch(17.8% 0 90);
+  --muted: oklch(57% 0.004 85);
+  --border: oklch(89.9% 0.008 85);
+  --accent: oklch(38.3% 0.002 85);
+  --ink-invert: oklch(95.4% 0.012 80);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), sans-serif;
+  margin: 0;
+}
+
+::selection {
+  background: var(--foreground);
+  color: var(--ink-invert);
+}
+
+.page-grid {
+  background-image:
+    linear-gradient(rgba(17, 17, 17, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 17, 17, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 56px 56px;
+}
+
+.editorial-headline {
+  letter-spacing: -0.06em;
+  font-weight: 300;
+  line-height: 0.9;
+  text-wrap: balance;
+}
+
+:where(.section-kicker) {
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: color-mix(in oklch, var(--foreground) 50%, transparent);
+}
+
+:where(.quiet-line) {
+  color: color-mix(in oklch, var(--foreground) 72%, transparent);
+  line-height: 1.9;
+}
+
+:where(.label-mono) {
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: color-mix(in oklch, var(--foreground) 46%, transparent);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.logo-wall-item {
+  filter: grayscale(1);
+  color: color-mix(in oklch, var(--foreground) 56%, transparent);
+  transition: filter 0.35s ease, color 0.35s ease, transform 0.35s ease;
+}
+
+.logo-wall-item:hover {
+  filter: grayscale(0);
+  color: var(--foreground);
+  transform: translateY(-2px);
+}
+
+.media-mask {
+  overflow: clip;
+}
+
+.media-mask img {
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.8s ease;
+}
+
+.media-mask:hover img {
+  transform: scale(1.04);
+  filter: saturate(1.05);
 }
