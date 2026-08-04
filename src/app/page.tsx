@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { CA, GB, BD, LK } from 'country-flag-icons/react/3x2'
 
 type CapacityItem = {
   id: string;
@@ -37,33 +38,6 @@ export default function Home() {
       body: "Certified material pathways, traceability, MOQ planning, and margin-conscious costing to protect both quality and business outcomes.",
       image:
         "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1600&q=80",
-    },
-  ];
-
-  const process = [
-    {
-      title: "Brief & Commercial Alignment",
-      body: "Define product requirements, pricing architecture, quality thresholds, and calendar constraints before allocation.",
-    },
-    {
-      title: "Targeted Vendor Selection",
-      body: "Match partners by product type, technical capability, compliance profile, and verified production capacity.",
-    },
-    {
-      title: "Fabric & Trim Development",
-      body: "Develop fabrics, trims, lab dips, and production-ready samples with early risk checks and alternatives.",
-    },
-    {
-      title: "Sampling & Approvals",
-      body: "Finalize fit approvals, technical packs, and quality control gates before order confirmation.",
-    },
-    {
-      title: "Production Oversight",
-      body: "Monitor production through inline inspections, milestone reporting, and pre-shipment assurance.",
-    },
-    {
-      title: "Consolidation & Delivery",
-      body: "Coordinate freight, customs, documentation, and final delivery readiness with clear communication to brand teams.",
     },
   ];
 
@@ -123,17 +97,11 @@ export default function Home() {
 
   const values = ["Customer First", "Quality", "Collaboration", "Responsibility", "Integrity"];
 
-  const [activeStep, setActiveStep] = useState(0);
   const [counts, setCounts] = useState<Record<string, number>>(() =>
     Object.fromEntries(capacities.map((item) => [item.id, 0])),
   );
   const [hasAnimatedCounts, setHasAnimatedCounts] = useState(false);
   const capacityRef = useRef<HTMLElement | null>(null);
-
-  const progressWidth = useMemo(
-    () => `${(activeStep / Math.max(process.length - 1, 1)) * 100}%`,
-    [activeStep, process.length],
-  );
 
   useEffect(() => {
     const revealElements = Array.from(
@@ -162,14 +130,6 @@ export default function Home() {
 
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % process.length);
-    }, 5000);
-
-    return () => window.clearInterval(intervalId);
-  }, [process.length]);
 
   useEffect(() => {
     const section = capacityRef.current;
@@ -213,6 +173,8 @@ export default function Home() {
     return () => observer.disconnect();
   }, [capacities, hasAnimatedCounts]);
 
+
+  
   return (
     <div className="bg-[var(--background)] text-[var(--foreground)]">
       <main>
@@ -226,26 +188,47 @@ export default function Home() {
 
           <div className="relative mx-auto flex min-h-[86svh] max-w-[1600px] flex-col justify-between px-6 py-6 sm:min-h-[92svh] sm:px-10 sm:py-8 lg:min-h-[96svh] lg:px-14">
             <div className="flex items-center justify-between text-[0.68rem] uppercase tracking-[0.3em] text-white">
-              <p>Soulparodox</p>
-              <p>Toronto · London · Dhaka · Colombo</p>
+              <img
+                src="https://raw.githubusercontent.com/DevPahanLankage/my-image-assets/refs/heads/main/SOULPARODOX-removebg-preview.png"
+                alt="Soulparodox"
+                style={{ height: "90px", width: "auto", objectFit: "contain" }}
+              />
+              <div className="flex items-center gap-8">
+                <div className="flex flex-col items-center text-[10px] tracking-widest">
+                  <CA title="Canada" className="w-8 h-auto mb-1 rounded-sm" />
+                  <span>TORONTO</span>
+                </div>
+                <div className="flex flex-col items-center text-[10px] tracking-widest">
+                  <GB title="United Kingdom" className="w-8 h-auto mb-1 rounded-sm" />
+                  <span>LONDON</span>
+                </div>
+                <div className="flex flex-col items-center text-[10px] tracking-widest">
+                  <BD title="Bangladesh" className="w-8 h-auto mb-1 rounded-sm" />
+                  <span>DHAKA</span>
+                </div>
+                <div className="flex flex-col items-center text-[10px] tracking-widest">
+                  <LK title="Sri Lanka" className="w-8 h-auto mb-1 rounded-sm" />
+                  <span>COLOMBO</span>
+                </div>
+              </div>
             </div>
 
             <div className="grid gap-8 pb-6 pt-14 sm:gap-10 sm:pb-8 sm:pt-16 lg:grid-cols-[1.25fr_0.75fr] lg:pb-16 lg:pt-20">
               <div data-reveal>
-                <p className="label-mono text-white">Sourcing clarity. Manufacturing confidence.</p>
+                <p className="text-[0.75rem] tracking-[0.24em] uppercase text-white">Sourcing clarity. Manufacturing confidence.</p>
                 <h1 className="editorial-headline mt-5 max-w-6xl text-[clamp(2.35rem,7vw,7.1rem)] text-[var(--ink-invert)] sm:mt-6">
                   Apparel sourcing with the structure, pace, and control billion-dollar brands expect.
                 </h1>
               </div>
 
               <div className="self-end pb-2" data-reveal data-reveal-delay="120">
-                <p className="max-w-md text-[0.98rem] text-white">
-                  Soulparodox is a Toronto-headquartered sourcing partner with 25+ years of leadership inside global
+                <p className="max-w-md text-[1rem] text-white">
+                  Soulparodox is a Toronto-headquartered sourcing partner with 5+ years of leadership inside global
                   manufacturing organizations, connecting premium fashion teams with verified manufacturing networks
                   across Bangladesh and Sri Lanka.
                 </p>
                 <a
-                  className="mt-6 inline-block border-b border-white/70 pb-1 text-[0.72rem] uppercase tracking-[0.24em] text-white sm:mt-8"
+                  className="mt-6 inline-block border-b border-white/70 pb-1 text-[1rem] uppercase tracking-[0.24em] text-white sm:mt-8"
                   href="#contact"
                 >
                   Start a sourcing conversation
@@ -278,7 +261,7 @@ export default function Home() {
               </div>
               <div className="flex justify-between border-b border-black/10 pb-3 text-sm">
                 <span className="label-mono">Experience</span>
-                <span className="text-black/82">25+ years</span>
+                <span className="text-black/82">5+ years</span>
               </div>
             </div>
           </div>
@@ -322,40 +305,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1600px] px-6 py-16 sm:px-10 lg:px-14 lg:py-24">
-          <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
-            <div data-reveal>
-              <p className="section-kicker">Six-step process</p>
-              <h2 className="mt-4 max-w-lg text-[clamp(2rem,4vw,4rem)] font-light leading-[1.03] tracking-[-0.04em]">
-                Premium sourcing is a sequence, not a handoff.
-              </h2>
-            </div>
-            <div data-reveal data-reveal-delay="80">
-              <div className="relative h-[1px] bg-black/12">
-                <div className="absolute left-0 top-0 h-full bg-black transition-all duration-500" style={{ width: progressWidth }} />
-              </div>
-              <div className="mt-6 grid gap-2 sm:grid-cols-3">
-                {process.map((step, index) => (
-                  <button
-                    key={step.title}
-                    type="button"
-                    onClick={() => setActiveStep(index)}
-                    className={`cursor-pointer border-b pb-3 text-left transition-colors ${index === activeStep ? "border-black text-black" : "border-black/15 text-black/48 hover:text-black/72"}`}
-                  >
-                    <span className="label-mono">{`0${index + 1}`}</span>
-                  </button>
-                ))}
-              </div>
-              <div className="mt-8 bg-[#111111] px-7 py-9 text-[var(--ink-invert)] sm:px-10 sm:py-11">
-                <h3 className="text-[clamp(1.35rem,2.5vw,2.25rem)] font-light tracking-[-0.03em]">
-                  {process[activeStep].title}
-                </h3>
-                <p className="mt-4 max-w-2xl text-white/84">{process[activeStep].body}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <section
           ref={capacityRef}
           className="relative overflow-hidden bg-[#111111] px-6 py-20 text-[var(--ink-invert)] sm:px-10 lg:px-14 lg:py-28"
@@ -364,7 +313,7 @@ export default function Home() {
           <div className="relative mx-auto max-w-[1600px]">
             <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
               <div data-reveal>
-                <p className="section-kicker text-white/55">Production capacity</p>
+                <p className="text-[0.68rem] tracking-[0.3em] uppercase font-medium text-white">Production capacity</p>
                 <h2 className="mt-4 text-[clamp(2.2rem,4.9vw,5.3rem)] font-light leading-[0.95] tracking-[-0.05em]">
                   Scale presented as hard numbers, not supporting cards.
                 </h2>
@@ -496,24 +445,123 @@ export default function Home() {
           <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.02),transparent_40%,rgba(255,255,255,0.06))]" />
           <div className="relative mx-auto grid max-w-[1600px] gap-10 lg:grid-cols-[1.2fr_0.8fr]">
             <div data-reveal>
-              <p className="section-kicker text-white/52">Contact</p>
-              <h2 className="mt-5 max-w-5xl text-[clamp(2.4rem,6.4vw,6.8rem)] font-light leading-[0.9] tracking-[-0.055em]">
+              <p className="text-[0.68rem] tracking-[0.3em] uppercase font-medium text-white">Contact</p>
+              <h2 className="mt-5 mb-7 max-w-5xl text-[clamp(2.4rem,6.4vw,6.8rem)] font-light leading-[0.9] tracking-[-0.055em]">
                 Built to support the sourcing demands of global premium brands.
               </h2>
             </div>
 
-            <div className="space-y-4 self-end text-sm text-white/80" data-reveal data-reveal-delay="120">
-              <p>Email: info@soulparodox.com</p>
-              <p>Locations: Toronto · London · Dhaka · Colombo</p>
+
+            <div
+              className="flex items-center justify-center h-full"
+              data-reveal
+              data-reveal-delay="120">
               <a
                 href="mailto:info@soulparodox.com"
-                className="mt-6 inline-flex items-center border border-white/34 px-5 py-3 text-[0.72rem] uppercase tracking-[0.22em] text-white transition-colors hover:bg-white hover:text-[#111111]"
-              >
-                Request sourcing brief
+                className="
+                  inline-flex items-center justify-center
+                  border border-white/28
+                  px-6 py-[14px]
+                  text-[0.7rem] font-medium uppercase
+                  tracking-[0.22em]
+                  text-[#f5f0e8]
+                  transition-all duration-300
+                  hover:border-[#f5f0e8]
+                  hover:bg-[#f5f0e8]
+                  hover:text-[#111111]
+                "
+                data-reveal
+                data-reveal-delay="80">
+                  Request Sourcing Brief
               </a>
             </div>
           </div>
-        </section>
+
+
+{/* Office Grid */}
+<div
+  className="grid grid-cols-2 lg:grid-cols-4 border border-white/[0.12] divide-x divide-y lg:divide-y-0 divide-white/[0.12]"
+  data-reveal
+  data-reveal-delay="120"
+>
+  {[
+    {
+      Flag: CA,
+      code: "CA",
+      city: "Toronto",
+      addr: ["13 Hammersly Blvd", "L6E 2A5, Canada"],
+      phone: "+1 437 383 2511",
+    },
+    {
+      Flag: GB,
+      code: "UK",
+      city: "London",
+      addr: ["23 Franklin Road", "DT4 0JW, United Kingdom"],
+      phone: "+44 7388 910170",
+    },
+    {
+      Flag: BD,
+      code: "BD",
+      city: "Dhaka",
+      addr: ["Sector 11, Road 14", "House 79, Uttara"],
+      phone: "+880 1739 176828",
+    },
+    {
+      Flag: LK,
+      code: "LK",
+      city: "Colombo",
+      addr: ["566/3A Ranmuthugala" , "Kadawatha, Western Province"],
+      phone: "+94 72 649 6551",
+    },
+  ].map((office) => {
+    const OfficeFlag = office.Flag;
+
+    return (
+      <div
+        key={office.code}
+        className="flex flex-col px-8 py-10 sm:px-10 lg:px-8"
+      >
+        <OfficeFlag
+          title={office.city}
+          className="w-7 h-auto rounded-sm border border-white/10 shadow-sm"
+        />
+
+        <p className="mt-3 text-[0.62rem] font-medium uppercase tracking-[0.28em] text-white/40">
+          {office.code}
+        </p>
+
+        <h3 className="mt-5 text-[1rem] font-normal tracking-[-0.01em] text-[#f5f0e8]">
+          {office.city}
+        </h3>
+
+        <p className="mt-3 text-[0.78rem] leading-[1.7] text-white/52">
+          {office.addr.map((line) => (
+            <span key={line}>
+              {line}
+              <br />
+            </span>
+          ))}
+        </p>
+
+        <p className="mt-4 text-[0.75rem] tracking-[0.04em] text-white/38 tabular-nums">
+          {office.phone}
+        </p>
+      </div>
+    );
+  })}
+</div>
+
+          <div className="flex items-center justify-between pt-8" data-reveal data-reveal-delay="160">
+            <span className="text-[0.62rem] uppercase tracking-[0.28em] text-white/35">
+              General enquiries
+            </span>
+            <span className="text-[0.82rem] tracking-[0.02em] text-white/70">
+              info@soulparodox.com
+            </span>
+          </div>
+
+
+        </section>       
       </main>
     </div>
   );

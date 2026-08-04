@@ -36,17 +36,10 @@ body {
   color: var(--ink-invert);
 }
 
-.page-grid {
-  background-image:
-    linear-gradient(rgba(17, 17, 17, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17, 17, 17, 0.04) 1px, transparent 1px);
-  background-size: 100% 100%, 56px 56px;
-}
-
 .editorial-headline {
   letter-spacing: -0.06em;
   font-weight: 300;
-  line-height: 0.9;
+  line-height: 1;
   text-wrap: balance;
 }
 
