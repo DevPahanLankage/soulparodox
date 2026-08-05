@@ -31,7 +31,7 @@ export default function Home() {
       title: "Quality Assurance & Compliance",
       body: "Factory inspections, inline quality control, pre-shipment checks, social compliance audits, and continuous corrective action loops.",
       image:
-        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1600&q=80",
+        "https://raw.githubusercontent.com/DevPahanLankage/my-image-assets/refs/heads/main/Gemini_Generated_Image_mg1z9vmg1z9vmg1z%20(1).png",
     },
     {
       title: "Sustainable Sourcing & Commercial Costing",
@@ -187,31 +187,32 @@ export default function Home() {
           <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(17,17,17,0.92)_12%,rgba(17,17,17,0.62)_58%,rgba(17,17,17,0.9)_100%)]" />
 
           <div className="relative mx-auto flex min-h-[86svh] max-w-[1600px] flex-col justify-between px-6 py-6 sm:min-h-[92svh] sm:px-10 sm:py-8 lg:min-h-[96svh] lg:px-14">
-            <div className="flex items-center justify-between text-[0.68rem] uppercase tracking-[0.3em] text-white">
-              <img
-                src="https://raw.githubusercontent.com/DevPahanLankage/my-image-assets/refs/heads/main/SOULPARODOX-removebg-preview.png"
-                alt="Soulparodox"
-                style={{ height: "90px", width: "auto", objectFit: "contain" }}
-              />
-              <div className="flex items-center gap-8">
-                <div className="flex flex-col items-center text-[10px] tracking-widest">
-                  <CA title="Canada" className="w-8 h-auto mb-1 rounded-sm" />
-                  <span>TORONTO</span>
-                </div>
-                <div className="flex flex-col items-center text-[10px] tracking-widest">
-                  <GB title="United Kingdom" className="w-8 h-auto mb-1 rounded-sm" />
-                  <span>LONDON</span>
-                </div>
-                <div className="flex flex-col items-center text-[10px] tracking-widest">
-                  <BD title="Bangladesh" className="w-8 h-auto mb-1 rounded-sm" />
-                  <span>DHAKA</span>
-                </div>
-                <div className="flex flex-col items-center text-[10px] tracking-widest">
-                  <LK title="Sri Lanka" className="w-8 h-auto mb-1 rounded-sm" />
-                  <span>COLOMBO</span>
-                </div>
+          
+          <div className="flex items-center justify-between text-[0.68rem] uppercase tracking-[0.3em] text-white">
+            <img
+              src="https://raw.githubusercontent.com/DevPahanLankage/my-image-assets/refs/heads/main/SOULPARODOX-removebg-preview.png"
+              alt="Soulparodox"
+              className="h-[48px] w-auto object-contain sm:h-[70px] lg:h-[90px]"
+            />
+            <div className="flex items-center gap-3 sm:gap-5 lg:gap-8">
+              <div className="flex flex-col items-center text-[7px] tracking-widest sm:text-[9px] lg:text-[10px]">
+                <CA title="Canada" className="mb-1 h-auto w-5 rounded-sm sm:w-6 lg:w-8" />
+                <span>TORONTO</span>
+              </div>
+              <div className="flex flex-col items-center text-[7px] tracking-widest sm:text-[9px] lg:text-[10px]">
+                <GB title="United Kingdom" className="mb-1 h-auto w-5 rounded-sm sm:w-6 lg:w-8" />
+                <span>LONDON</span>
+              </div>
+              <div className="flex flex-col items-center text-[7px] tracking-widest sm:text-[9px] lg:text-[10px]">
+                <BD title="Bangladesh" className="mb-1 h-auto w-5 rounded-sm sm:w-6 lg:w-8" />
+                <span>DHAKA</span>
+              </div>
+              <div className="flex flex-col items-center text-[7px] tracking-widest sm:text-[9px] lg:text-[10px]">
+                <LK title="Sri Lanka" className="mb-1 h-auto w-5 rounded-sm sm:w-6 lg:w-8" />
+                <span>COLOMBO</span>
               </div>
             </div>
+          </div>
 
             <div className="grid gap-8 pb-6 pt-14 sm:gap-10 sm:pb-8 sm:pt-16 lg:grid-cols-[1.25fr_0.75fr] lg:pb-16 lg:pt-20">
               <div data-reveal>
@@ -333,45 +334,74 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1600px] px-6 py-24 sm:px-10 lg:px-14 lg:py-30">
-          <div className="grid gap-14 lg:grid-cols-[1.2fr_0.8fr]">
+        <section className="bg-[var(--surface)] px-6 py-24 sm:px-10 lg:px-14 lg:py-30">
+          <div className="mx-auto max-w-[1600px]">
             <div data-reveal>
-              <p className="section-kicker">Certifications & compliance</p>
+              <p className="section-kicker">Global Presence</p>
               <h2 className="mt-4 max-w-4xl text-[clamp(2.1rem,4.5vw,4.6rem)] font-light leading-[1] tracking-[-0.045em]">
+                A global network built for precision sourcing.
+              </h2>
+            </div>
+
+            <div className="relative mt-12" data-reveal data-reveal-delay="120">
+              <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-[var(--surface)] to-transparent" />
+              <img src="/_pdf_images/worldmap.png" alt="World map" className="w-full object-contain" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-[var(--surface)] to-transparent" />
+            </div>
+
+            <div className="mt-10 flex items-end justify-between gap-6" data-reveal data-reveal-delay="200">
+              {offices.map((office, index) => {
+                const flag = index === 0 ? "🇨🇦" : index === 1 ? "🇬🇧" : index === 2 ? "🇧🇩" : "🇱🇰";
+                const city = index === 0 ? "Markham" : index === 1 ? "Weymouth" : index === 2 ? "Dhaka" : "Kadawatha";
+
+                return (
+                  <div key={office} className="flex flex-col items-center gap-2 text-center">
+                    <span className="text-xl">{flag}</span>
+                    <span className="text-[0.72rem] uppercase tracking-[0.2em] text-black/50">{city}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="relative overflow-hidden bg-[#1a1917] px-6 py-20 sm:px-10 lg:px-14 lg:py-24">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.04),transparent_60%)] pointer-events-none" />
+          <div className="relative mx-auto grid max-w-[1600px] gap-14 lg:grid-cols-[1fr_1fr]">
+            <div data-reveal>
+              <p className="section-kicker text-white/40">Certifications & Compliance</p>
+              <h2 className="mt-4 max-w-4xl text-[clamp(2.1rem,4.5vw,4.6rem)] font-light leading-[1] tracking-[-0.045em] text-[#f5f0e8]">
                 Built for quality, sustainability, social responsibility, and measurable compliance.
               </h2>
-              <div className="mt-10 grid grid-cols-2 gap-x-10 gap-y-9 sm:grid-cols-4">
+            </div>
+
+            <div>
+              <div className="grid grid-cols-2 gap-x-10 gap-y-9 sm:grid-cols-4">
                 {certifications.map((logo, index) => (
                   <div key={logo} className="logo-wall-item" data-reveal data-reveal-delay={80 + index * 40}>
-                    <div className="text-[1.05rem] font-medium tracking-[0.06em]">{logo}</div>
-                    <div className="mt-2 h-px bg-black/16" />
+                    <div className="text-[1.05rem] font-medium tracking-[0.06em] text-[#f5f0e8]">{logo}</div>
+                    <div className="mt-2 h-px bg-white/12" />
                   </div>
                 ))}
               </div>
-            </div>
 
-            <aside className="space-y-10 bg-[#f4efe7] px-7 py-8 sm:px-9 sm:py-10" data-reveal data-reveal-delay="120">
-              <div>
-                <p className="label-mono">Global presence</p>
-                <div className="mt-4 space-y-3">
-                  {offices.map((office) => (
-                    <p key={office} className="text-lg font-light tracking-[-0.02em]">
-                      {office}
-                    </p>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="label-mono">Values</p>
-                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+              <div className="mt-12">
+                <p className="label-mono text-white/35">Values</p>
+                <div className="mt-4 hidden lg:block">
                   {values.map((value) => (
-                    <span key={value} className="text-sm text-black/70">
-                      {value}
-                    </span>
+                    <div key={value} className="flex items-center justify-between border-t border-white/10 py-2.5 last:border-b">
+                      <span className="text-[0.82rem] tracking-[0.02em] text-[#f5f0e8]/70">{value}</span>
+                      <span className="text-[0.6rem] uppercase tracking-[0.2em] text-white/25">—</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 lg:hidden">
+                  {values.map((value) => (
+                    <span key={value} className="text-sm text-white/55">{value}</span>
                   ))}
                 </div>
               </div>
-            </aside>
+            </div>
           </div>
         </section>
 
