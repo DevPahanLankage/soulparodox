@@ -3,6 +3,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CA, GB, BD, LK } from 'country-flag-icons/react/3x2'
+import { WorldMap } from "@/components/ui/world-map";
 
 type CapacityItem = {
   id: string;
@@ -12,8 +13,6 @@ type CapacityItem = {
 };
 
 export default function Home() {
-  const offices = ["Toronto", "London", "Dhaka", "Colombo"];
-
   const capabilities = [
     {
       title: "Strategic Sourcing & Vendor Management",
@@ -190,7 +189,7 @@ export default function Home() {
           
           <div className="flex items-center justify-between text-[0.68rem] uppercase tracking-[0.3em] text-white">
             <img
-              src="https://raw.githubusercontent.com/DevPahanLankage/my-image-assets/refs/heads/main/SOULPARODOX-removebg-preview.png"
+              src="https://raw.githubusercontent.com/DevPahanLankage/soulparodox/refs/heads/main/public/Fixed%20Logo.pdf-Photoroom.png?token=GHSAT0AAAAAAEFFLBCR4VHUPLNSX7B6EHA22TZ24GA"
               alt="Soulparodox"
               className="h-[48px] w-auto object-contain sm:h-[70px] lg:h-[90px]"
             />
@@ -343,24 +342,27 @@ export default function Home() {
               </h2>
             </div>
 
-            <div className="relative mt-12" data-reveal data-reveal-delay="120">
-              <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-[var(--surface)] to-transparent" />
-              <img src="/_pdf_images/worldmap.png" alt="World map" className="w-full object-contain" />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-[var(--surface)] to-transparent" />
-            </div>
-
-            <div className="mt-10 flex items-end justify-between gap-6" data-reveal data-reveal-delay="200">
-              {offices.map((office, index) => {
-                const flag = index === 0 ? "🇨🇦" : index === 1 ? "🇬🇧" : index === 2 ? "🇧🇩" : "🇱🇰";
-                const city = index === 0 ? "Markham" : index === 1 ? "Weymouth" : index === 2 ? "Dhaka" : "Kadawatha";
-
-                return (
-                  <div key={office} className="flex flex-col items-center gap-2 text-center">
-                    <span className="text-xl">{flag}</span>
-                    <span className="text-[0.72rem] uppercase tracking-[0.2em] text-black/50">{city}</span>
-                  </div>
-                );
-              })}
+            <div className="mt-12" data-reveal data-reveal-delay="120">
+              <WorldMap
+                dots={[
+                  {
+                    start: { lat: -6.5, lng: 87.5, label: "Sri Lanka" },
+                    end: { lat: 43.5, lng: 3.5, label: "London, UK" },
+                  },
+                  {
+                    start: { lat: 15.5, lng: 95.5, label: "Bangladesh" },
+                    end: { lat: 35.0, lng: -90.0, label: "Toronto" },
+                  },
+                  {
+                    start: { lat: 43.5, lng: 3.5, label: "London, UK" },
+                    end: { lat: 35.0, lng: -90.0, label: "Toronto" },
+                  },
+                  {
+                    start: { lat: -6.5, lng: 87.5, label: "Sri Lanka" },
+                    end: { lat: 15.5, lng: 95.5, label: "Bangladesh" },
+                  },
+                ]}
+              />
             </div>
           </div>
         </section>
@@ -369,7 +371,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.04),transparent_60%)] pointer-events-none" />
           <div className="relative mx-auto grid max-w-[1600px] gap-14 lg:grid-cols-[1fr_1fr]">
             <div data-reveal>
-              <p className="section-kicker text-white/40">Certifications & Compliance</p>
+              <p className="text-[0.68rem] tracking-[0.3em] uppercase font-medium text-white">Certifications & Compliance</p>
               <h2 className="mt-4 max-w-4xl text-[clamp(2.1rem,4.5vw,4.6rem)] font-light leading-[1] tracking-[-0.045em] text-[#f5f0e8]">
                 Built for quality, sustainability, social responsibility, and measurable compliance.
               </h2>
