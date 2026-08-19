@@ -18,25 +18,25 @@ export default function Home() {
       title: "Strategic Sourcing & Vendor Management",
       body: "Supplier selection, factory matching, capacity planning, commercial negotiations, and lead time optimization for global fashion calendars.",
       image:
-        "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1600&q=80",
+        "/images/strategic-sourcing.png",
     },
     {
       title: "Product Development & R&D",
       body: "Fabric sourcing, lab dips, tech packs, sampling, fit approvals, and prototype development with practical production alignment.",
       image:
-        "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80",
+        "/images/product-development.png",
     },
     {
       title: "Quality Assurance & Compliance",
       body: "Factory inspections, inline quality control, pre-shipment checks, social compliance audits, and continuous corrective action loops.",
       image:
-        "https://raw.githubusercontent.com/DevPahanLankage/my-image-assets/refs/heads/main/Gemini_Generated_Image_mg1z9vmg1z9vmg1z%20(1).png",
+        "/images/quality-compliance.png",
     },
     {
       title: "Sustainable Sourcing & Commercial Costing",
       body: "Certified material pathways, traceability, MOQ planning, and margin-conscious costing to protect both quality and business outcomes.",
       image:
-        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1600&q=80",
+        "/images/sustainable-sourcing.png",
     },
   ];
 
@@ -179,7 +179,7 @@ export default function Home() {
       <main>
         <section className="relative isolate min-h-[86svh] overflow-hidden bg-[#111111] text-[var(--ink-invert)] sm:min-h-[92svh] lg:min-h-[96svh]">
           <img
-            src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=2200&q=80"
+            src="/images/garment-hero.png"
             alt="Textile production environment"
             className="absolute inset-0 h-full w-full object-cover opacity-45"
           />
