@@ -189,7 +189,7 @@ export default function Home() {
           
           <div className="flex items-center justify-between text-[0.68rem] uppercase tracking-[0.3em] text-white">
             <img
-              src="https://raw.githubusercontent.com/DevPahanLankage/soulparodox/refs/heads/main/public/Fixed%20Logo.pdf-Photoroom.png?token=GHSAT0AAAAAAEFFLBCR4VHUPLNSX7B6EHA22TZ24GA"
+              src="/soulparodox-logo.png"
               alt="Soulparodox"
               className="h-[48px] w-auto object-contain sm:h-[70px] lg:h-[90px]"
             />
