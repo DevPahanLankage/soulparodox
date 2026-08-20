@@ -191,7 +191,7 @@ export default function Home() {
             <img
               src="/soulparodox-logo.png"
               alt="Soulparodox"
-              className="h-[48px] w-auto object-contain sm:h-[70px] lg:h-[90px]"
+              className="h-[51px] w-auto object-contain sm:h-[77px] lg:h-[103px]"
             />
             <div className="flex items-center gap-3 sm:gap-5 lg:gap-8">
               <div className="flex flex-col items-center text-[7px] tracking-widest sm:text-[9px] lg:text-[10px]">
