@@ -12,6 +12,14 @@ type CapacityItem = {
   suffix: string;
 };
 
+type CategoryArtwork = {
+  image: string;
+  alt: string;
+  frame: string;
+  imagePosition: string;
+  labelPlacement?: "below";
+};
+
 export default function Home() {
   const capabilities = [
     {
@@ -93,6 +101,115 @@ export default function Home() {
     "Quilting",
     "Bonding",
   ];
+
+  const categoryArtwork: Record<string, CategoryArtwork> = {
+    "Circular Knit": {
+      image: "https://images.unsplash.com/photo-1759572095384-1a7e646d0d4f?auto=format&fit=crop&w=1800&q=82",
+      alt: "Cotton t-shirts arranged with natural fiber details",
+      frame: "row-span-[38] sm:col-span-2 sm:row-span-[44] lg:col-span-2 lg:row-span-[56]",
+      imagePosition: "object-center",
+    },
+    "Flat Knit": {
+      image: "https://images.unsplash.com/photo-1611312449297-a69dc9c3987b?auto=format&fit=crop&w=1400&q=82",
+      alt: "Black knit sweater suspended on a hanger",
+      frame: "row-span-[34] sm:row-span-[42] lg:row-span-[46]",
+      imagePosition: "object-center",
+      labelPlacement: "below",
+    },
+    "Lightweight Woven": {
+      image: "https://images.unsplash.com/photo-1783113298894-eeb3b71315d9?auto=format&fit=crop&w=1400&q=82",
+      alt: "Crisp white linen shirt styled outdoors",
+      frame: "row-span-[32] sm:row-span-[36] lg:row-span-[40]",
+      imagePosition: "object-top",
+    },
+    Denim: {
+      image: "https://images.unsplash.com/photo-1602693130669-9c9e53cc320c?auto=format&fit=crop&w=1800&q=82",
+      alt: "Editorial denim jacket and black denim styling",
+      frame: "row-span-[40] sm:col-span-2 sm:row-span-[46] lg:col-span-2 lg:row-span-[50]",
+      imagePosition: "object-center",
+    },
+    Pants: {
+      image: "https://images.unsplash.com/photo-1584865288642-42078afe6942?auto=format&fit=crop&w=1400&q=82",
+      alt: "Model wearing clean black pants and white tee",
+      frame: "row-span-[36] sm:row-span-[40] lg:row-span-[48]",
+      imagePosition: "object-center",
+      labelPlacement: "below",
+    },
+    Activewear: {
+      image: "https://images.unsplash.com/photo-1762337382150-00d088663e3a?auto=format&fit=crop&w=1500&q=82",
+      alt: "Athletic apparel styled by an urban waterfront",
+      frame: "row-span-[34] sm:row-span-[38] lg:row-span-[42]",
+      imagePosition: "object-center",
+    },
+    Outerwear: {
+      image: "https://images.unsplash.com/photo-1787045107944-9c4381635d93?auto=format&fit=crop&w=1600&q=82",
+      alt: "Tailored outerwear coat with scarf in studio light",
+      frame: "row-span-[42] sm:col-span-2 sm:row-span-[46] lg:col-span-2 lg:row-span-[54]",
+      imagePosition: "object-center",
+    },
+    Skiwear: {
+      image: "https://images.unsplash.com/photo-1768777327966-bae36f1602be?auto=format&fit=crop&w=1500&q=82",
+      alt: "Technical snow jacket and helmet on a ski slope",
+      frame: "row-span-[38] sm:row-span-[44] lg:row-span-[50]",
+      imagePosition: "object-center",
+    },
+    Leather: {
+      image: "https://images.unsplash.com/photo-1759771716328-db403c219f56?auto=format&fit=crop&w=1400&q=82",
+      alt: "Editorial portrait in a dark leather jacket",
+      frame: "row-span-[42] sm:row-span-[48] lg:row-span-[58]",
+      imagePosition: "object-center",
+    },
+    "Indoor Jackets": {
+      image: "https://images.unsplash.com/photo-1656191047543-b7c08bdc48de?auto=format&fit=crop&w=1400&q=82",
+      alt: "Soft coat and hat styled during fashion week",
+      frame: "row-span-[34] sm:row-span-[38] lg:row-span-[44]",
+      imagePosition: "object-center",
+    },
+    Chinos: {
+      image: "https://images.unsplash.com/photo-1681483476977-322d81693e41?auto=format&fit=crop&w=1400&q=82",
+      alt: "Khaki trousers styled with knitwear in studio",
+      frame: "row-span-[36] sm:row-span-[42] lg:row-span-[46]",
+      imagePosition: "object-center",
+      labelPlacement: "below",
+    },
+    Swimwear: {
+      image: "https://images.unsplash.com/photo-1636427697818-a1bf8794ee17?auto=format&fit=crop&w=1400&q=82",
+      alt: "White one-piece swimwear styled on the beach",
+      frame: "row-span-[38] sm:col-span-2 sm:row-span-[42] lg:col-span-2 lg:row-span-[48]",
+      imagePosition: "object-center",
+    },
+    Seamless: {
+      image: "https://images.unsplash.com/photo-1597460832677-0a6bdc6d0ab0?auto=format&fit=crop&w=1400&q=82",
+      alt: "Seamless black activewear during a stretch pose",
+      frame: "row-span-[32] sm:row-span-[38] lg:row-span-[42]",
+      imagePosition: "object-center",
+    },
+    Accessories: {
+      image: "https://images.unsplash.com/photo-1558642842-d30b4b0e4448?auto=format&fit=crop&w=1400&q=82",
+      alt: "Handbag styled as part of an editorial fashion look",
+      frame: "row-span-[34] sm:row-span-[38] lg:row-span-[44]",
+      imagePosition: "object-center",
+    },
+    Headwear: {
+      image: "https://images.unsplash.com/photo-1637110307910-f7f81799ee98?auto=format&fit=crop&w=1400&q=82",
+      alt: "Fashion portrait with headwear on a path",
+      frame: "row-span-[38] sm:row-span-[44] lg:row-span-[50]",
+      imagePosition: "object-center",
+      labelPlacement: "below",
+    },
+    Belts: {
+      image: "https://images.unsplash.com/photo-1568749367486-bc3b28bcbf63?auto=format&fit=crop&w=1400&q=82",
+      alt: "Close crop of a belt and buckle detail",
+      frame: "row-span-[26] sm:row-span-[30] lg:row-span-[34]",
+      imagePosition: "object-center",
+    },
+    Bags: {
+      image: "https://images.unsplash.com/photo-1786484215695-2d2815658086?auto=format&fit=crop&w=1600&q=82",
+      alt: "Green leather handbag in editorial styling",
+      frame: "row-span-[36] sm:col-span-2 sm:row-span-[42] lg:col-span-2 lg:row-span-[48]",
+      imagePosition: "object-center",
+    },
+  };
 
   const values = ["Customer First", "Quality", "Collaboration", "Responsibility", "Integrity"];
 
@@ -189,7 +306,7 @@ export default function Home() {
           
           <div className="flex items-center justify-between text-[0.68rem] uppercase tracking-[0.3em] text-white">
             <img
-              src="/soulparodox-logo.png"
+              src="https://raw.githubusercontent.com/DevPahanLankage/my-image-assets/refs/heads/main/Fixed%20Logo.pdf-Photoroom.png"
               alt="Soulparodox"
               className="h-[51px] w-auto object-contain sm:h-[77px] lg:h-[103px]"
             />
@@ -407,28 +524,75 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-[var(--surface)] px-6 py-16 sm:px-10 lg:px-14 lg:py-22">
+        <section className="bg-[var(--surface)] px-6 py-18 sm:px-10 lg:px-14 lg:py-30">
           <div className="mx-auto max-w-[1600px]">
-            <div className="grid gap-12 lg:grid-cols-[1.12fr_0.88fr]">
-              <div data-reveal>
-                <p className="section-kicker">Product categories</p>
-                <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2 xl:grid-cols-3">
-                  {categories.map((category, index) => (
-                    <p
-                      key={category}
-                      data-reveal
-                      data-reveal-delay={index * 22}
-                      className="text-[clamp(1.15rem,2.35vw,2.15rem)] font-light leading-[1.08] tracking-[-0.032em]"
-                    >
-                      {category}
-                    </p>
-                  ))}
-                </div>
-              </div>
-              <div className="self-end" data-reveal data-reveal-delay="120">
+            <div className="max-w-5xl" data-reveal>
+              <p className="section-kicker">Product categories</p>
+              <h2 className="mt-4 text-[clamp(2.1rem,4.5vw,4.6rem)] font-light leading-[1] tracking-[-0.045em]">
+                An edited view of the apparel categories Soulparodox can source, develop, and place into production.
+              </h2>
+            </div>
+
+            <div className="mt-14 grid auto-rows-[8px] grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-8 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-10">
+              {categories.map((category, index) => {
+                const artwork = categoryArtwork[category];
+                const labelBelow = artwork.labelPlacement === "below";
+
+                return (
+                  <article
+                    key={category}
+                    className={`group flex h-full flex-col ${artwork.frame}`}
+                    data-reveal
+                    data-reveal-delay={index * 28}
+                  >
+                    <div className="media-mask relative min-h-0 flex-1 bg-black/5">
+                      <img
+                        src={artwork.image}
+                        alt={artwork.alt}
+                        className={`h-full w-full object-cover ${artwork.imagePosition}`}
+                      />
+                      {!labelBelow && (
+                        <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/50 via-black/14 to-transparent p-4 transition-colors duration-1000 group-hover:from-black/42 group-hover:via-black/8 sm:p-5">
+                          <p className="translate-y-0 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white/86 transition-transform duration-1000 group-hover:-translate-y-1">
+                            {category}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    {labelBelow && (
+                      <div className="mt-3 flex items-center justify-between border-b border-black/10 pb-2">
+                        <p className="text-[0.68rem] font-medium uppercase tracking-[0.22em] text-black/72">
+                          {category}
+                        </p>
+                        <span className="text-[0.58rem] tabular-nums tracking-[0.18em] text-black/34">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="mt-18 grid gap-8 border-t border-black/10 pt-8 lg:grid-cols-[0.34fr_1fr]" data-reveal data-reveal-delay="160">
+              <div>
                 <p className="section-kicker">Value-added services</p>
-                <div className="mt-4 border-t border-b border-black/12 py-5">
-                  <p className="text-sm leading-8 text-black/74">{services.join(" · ")}</p>
+                <p className="quiet-line mt-4 max-w-sm text-[0.95rem]">
+                  Secondary finishing and development capabilities, set quietly beneath the product gallery.
+                </p>
+              </div>
+              <div>
+                <div className="grid border-b border-black/10 sm:grid-cols-2 lg:grid-cols-3">
+                  {services.map((service, index) => (
+                    <div key={service} className="border-t border-black/10 py-4 sm:pr-8">
+                      <p className="text-[0.58rem] uppercase tracking-[0.22em] text-black/35">
+                        {String(index + 1).padStart(2, "0")}
+                      </p>
+                      <p className="mt-2 text-[clamp(1.05rem,1.6vw,1.45rem)] font-light leading-[1.1] tracking-[-0.035em] text-black/82">
+                        {service}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
