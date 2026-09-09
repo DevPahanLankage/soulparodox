@@ -324,9 +324,7 @@ export default function Home() {
 
                 <div className={styles.support} data-reveal data-reveal-delay="120">
                   <p className="max-w-md text-[1rem] text-white">
-                    Soulparodox is a Toronto-headquartered apparel sourcing partner with offices in London and Dhaka. We
-                    turn brand ideas into retail-ready collections through product development, verified vendor networks,
-                    and measurable compliance.
+                    Soulparodox is your trusted apparel sourcing engine for bangladesh % Sri Lanka. Soul Paradox specializes in providing complete apparel solution in Woven and Knit, from designs, to product development and sourcing to manufacturing as well as timely global delivery. We support for global brands with the right manufacturing solutions with 20+ years of apparel manufacturing experience. Soul Parodox is a Toronto-headquartered apparel sourcing partner with offices in London, Dhaka and Colomob.
                   </p>
                   <a
                     className={`${styles.cta} inline-block border-b border-white/70 pb-1 text-[1rem] uppercase tracking-[0.24em] text-white`}
