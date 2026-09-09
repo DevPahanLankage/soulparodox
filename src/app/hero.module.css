@@ -6,7 +6,7 @@
 }
 
 .navbar {
-  height: 80px;
+  height: 88px;
   background: #dedede;
   color: #111111;
   box-shadow:
@@ -17,7 +17,7 @@
 }
 
 .logo {
-  height: 64px;
+  height: 68px;
   width: auto;
   max-width: min(260px, 40vw);
   object-fit: contain;
@@ -48,15 +48,49 @@
 
 .support {
   align-self: center;
+  max-width: 34rem;
+}
+
+.supportCopy {
+  font-size: 1rem;
+  line-height: 1.65;
+  text-wrap: pretty;
 }
 
 .cta {
-  margin-top: clamp(12px, 3cqh, 32px);
+  font-size: 1rem;
+  margin-top: clamp(18px, 3.5cqh, 36px);
+}
+
+@media (max-width: 639px) {
+  .content {
+    padding-block: 18px 20px;
+  }
+
+  .composition {
+    gap: 14px;
+  }
+
+  .headline {
+    margin-top: 10px;
+    font-size: clamp(2.4rem, 13.5vw, 3.3rem);
+  }
+
+  .supportCopy {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .cta {
+    margin-top: 16px;
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
 }
 
 @media (min-width: 640px) {
-  .navbar { height: 96px; }
-  .logo { height: 80px; }
+  .navbar { height: 104px; }
+  .logo { height: 84px; }
 }
 
 @media (min-width: 1024px) {
@@ -69,12 +103,19 @@
     font-size: clamp(2.5rem, 12cqh, 7.1rem);
   }
 
-  .support { padding-top: 48px; }
+  .support { padding-top: clamp(0px, 1.5cqh, 12px); }
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .composition {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 32px;
+  }
 }
 
 @media (max-height: 600px) {
-  .navbar { height: 64px; }
-  .logo { height: 52px; }
+  .navbar { height: 72px; }
+  .logo { height: 56px; }
   .content { padding-block: 12px 20px; }
   .composition { gap: 12px; }
   .headline { margin-top: 10px; }

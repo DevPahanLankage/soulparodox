@@ -50,8 +50,8 @@ export default function Home() {
 
   const capacities: CapacityItem[] = useMemo(
     () => [
-      { id: "woven", label: "Woven", value: 210000, suffix: "pieces / month" },
-      { id: "knit", label: "Knit", value: 540000, suffix: "pieces / month" },
+      { id: "woven", label: "Woven Tops and Bottoms", value: 210000, suffix: "pieces / month" },
+      { id: "knit", label: "Knit Tops and Bottoms", value: 540000, suffix: "pieces / month" },
       { id: "outerwear", label: "Outerwear", value: 100000, suffix: "pieces / month" },
       { id: "workwear", label: "Workwear", value: 120000, suffix: "pieces / month" },
       { id: "headwear", label: "Headwear", value: 10000, suffix: "pieces / month" },
@@ -308,9 +308,9 @@ export default function Home() {
             <img
               src="/images/garment-hero.png"
               alt="Textile production environment"
-              className="absolute inset-0 h-full w-full object-cover opacity-45"
+              className="absolute inset-0 h-full w-full object-cover opacity-55"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(17,17,17,0.92)_12%,rgba(17,17,17,0.62)_58%,rgba(17,17,17,0.9)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(17,17,17,0.86)_12%,rgba(17,17,17,0.54)_58%,rgba(17,17,17,0.84)_100%)]" />
             <div className={`${styles.content} relative mx-auto max-w-[1600px] px-6 sm:px-10 lg:px-14`}>
               <div className={styles.composition}>
                 <div data-reveal>
@@ -323,11 +323,11 @@ export default function Home() {
                 </div>
 
                 <div className={styles.support} data-reveal data-reveal-delay="120">
-                  <p className="max-w-md text-[1rem] text-white">
+                  <p className={`${styles.supportCopy} text-white`}>
                     Soulparodox is your trusted apparel sourcing engine for Bangladesh & Sri Lanka. Soul Paradox specializes in providing complete apparel solution in Woven and Knit, from designs, to product development and sourcing to manufacturing as well as timely global delivery. We support for global brands with the right manufacturing solutions with 20+ years of apparel manufacturing experience. Soul Parodox is a Toronto-headquartered apparel sourcing partner with offices in London, Dhaka and Colomob.
                   </p>
                   <a
-                    className={`${styles.cta} inline-block border-b border-white/70 pb-1 text-[1rem] uppercase tracking-[0.24em] text-white`}
+                    className={`${styles.cta} inline-block border-b border-white/70 pb-1 uppercase tracking-[0.24em] text-white`}
                     href="#contact"
                   >
                     Start a sourcing conversation
@@ -337,35 +337,6 @@ export default function Home() {
             </div>
           </section>
         </div>
-
-        <section className="mx-auto grid max-w-[1600px] gap-10 px-6 py-20 sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:px-14 lg:py-28">
-          <div data-reveal>
-            <p className="section-kicker">Apparel sourcing support</p>
-            <h2 className="editorial-headline mt-4 max-w-5xl text-[clamp(2.3rem,6.4vw,6.2rem)] text-[var(--foreground)]">
-              Built on decades of hands-on apparel manufacturing experience.
-            </h2>
-          </div>
-          <div className="space-y-8 lg:pt-12" data-reveal data-reveal-delay="100">
-            <p className="quiet-line max-w-xl text-[1.03rem]">
-              Soulparodox gives buyers experienced representation on the ground in Bangladesh and Sri Lanka, with support
-              across product development, merchandising, sourcing, production follow-up, and quality control.
-            </p>
-            <div className="space-y-4">
-              <div className="flex justify-between border-b border-black/10 pb-3 text-sm">
-                <span className="label-mono">Headquarters</span>
-                <span className="text-black/82">Toronto</span>
-              </div>
-              <div className="flex justify-between border-b border-black/10 pb-3 text-sm">
-                <span className="label-mono">Manufacturing countries</span>
-                <span className="text-black/82">Bangladesh · Sri Lanka</span>
-              </div>
-              <div className="flex justify-between border-b border-black/10 pb-3 text-sm">
-                <span className="label-mono">Experience</span>
-                <span className="text-black/82">20+ years</span>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <section className="bg-[var(--surface)] px-6 py-16 sm:px-10 lg:px-14 lg:py-20">
           <div className="mx-auto max-w-[1600px]">
@@ -414,6 +385,63 @@ export default function Home() {
           </div>
         </section>
 
+        <section
+          ref={capacityRef}
+          className="relative overflow-hidden bg-[#111111] px-6 py-20 text-[var(--ink-invert)] sm:px-10 lg:px-14 lg:py-28"
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.09),transparent_32%),radial-gradient(circle_at_85%_70%,rgba(255,255,255,0.07),transparent_40%)]" />
+          <div className="relative mx-auto max-w-[1600px]">
+            <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
+              <div data-reveal>
+                <p className="text-[0.68rem] tracking-[0.3em] uppercase font-medium text-white">Production capacity</p>
+                <h2 className="mt-4 text-[clamp(2.2rem,4.9vw,5.3rem)] font-light leading-[0.95] tracking-[-0.05em]">
+                  Monthly production capacity across core apparel categories.
+                </h2>
+              </div>
+              <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3" data-reveal data-reveal-delay="120">
+                {capacities.map((item) => (
+                  <div key={item.id}>
+                    <p className="label-mono text-white/46">{item.label}</p>
+                    <p className="mt-3 text-[clamp(2.2rem,4.8vw,4rem)] font-light leading-none tracking-[-0.04em] tabular-nums">
+                      {counts[item.id].toLocaleString()}
+                    </p>
+                    <p className="mt-2 text-[0.78rem] uppercase tracking-[0.18em] text-white/48">{item.suffix}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto grid max-w-[1600px] gap-10 px-6 py-20 sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:px-14 lg:py-28">
+          <div data-reveal>
+            <p className="section-kicker">Apparel sourcing support</p>
+            <h2 className="editorial-headline mt-4 max-w-5xl text-[clamp(2.3rem,6.4vw,6.2rem)] text-[var(--foreground)]">
+              Built on decades of hands-on apparel manufacturing experience.
+            </h2>
+          </div>
+          <div className="space-y-8 lg:pt-12" data-reveal data-reveal-delay="100">
+            <p className="quiet-line max-w-xl text-[1.03rem]">
+              Soulparodox gives buyers experienced representation on the ground in Bangladesh and Sri Lanka, with support
+              across product development, merchandising, sourcing, production follow-up, and quality control.
+            </p>
+            <div className="space-y-4">
+              <div className="flex justify-between border-b border-black/10 pb-3 text-sm">
+                <span className="label-mono">Headquarters</span>
+                <span className="text-black/82">Toronto</span>
+              </div>
+              <div className="flex justify-between border-b border-black/10 pb-3 text-sm">
+                <span className="label-mono">Manufacturing countries</span>
+                <span className="text-black/82">Bangladesh · Sri Lanka</span>
+              </div>
+              <div className="flex justify-between border-b border-black/10 pb-3 text-sm">
+                <span className="label-mono">Experience</span>
+                <span className="text-black/82">20+ years</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="bg-[var(--surface)] px-6 py-18 sm:px-10 lg:px-14 lg:py-30" id="capabilities">
           <div className="mx-auto max-w-[1600px]">
             <div className="mb-14 flex items-end justify-between gap-10">
@@ -448,34 +476,6 @@ export default function Home() {
                   </div>
                 </article>
               ))}
-            </div>
-          </div>
-        </section>
-
-        <section
-          ref={capacityRef}
-          className="relative overflow-hidden bg-[#111111] px-6 py-20 text-[var(--ink-invert)] sm:px-10 lg:px-14 lg:py-28"
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.09),transparent_32%),radial-gradient(circle_at_85%_70%,rgba(255,255,255,0.07),transparent_40%)]" />
-          <div className="relative mx-auto max-w-[1600px]">
-            <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
-              <div data-reveal>
-                <p className="text-[0.68rem] tracking-[0.3em] uppercase font-medium text-white">Production capacity</p>
-                <h2 className="mt-4 text-[clamp(2.2rem,4.9vw,5.3rem)] font-light leading-[0.95] tracking-[-0.05em]">
-                  Monthly production capacity across core apparel categories.
-                </h2>
-              </div>
-              <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3" data-reveal data-reveal-delay="120">
-                {capacities.map((item) => (
-                  <div key={item.id}>
-                    <p className="label-mono text-white/46">{item.label}</p>
-                    <p className="mt-3 text-[clamp(2.2rem,4.8vw,4rem)] font-light leading-none tracking-[-0.04em] tabular-nums">
-                      {counts[item.id].toLocaleString()}
-                    </p>
-                    <p className="mt-2 text-[0.78rem] uppercase tracking-[0.18em] text-white/48">{item.suffix}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </section>
