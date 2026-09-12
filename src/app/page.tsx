@@ -1,8 +1,9 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect } from "react";
 import { CA, GB, BD, LK } from "country-flag-icons/react/3x2";
+import Image from "next/image";
 import { WorldMap } from "@/components/ui/world-map";
 import styles from "./hero.module.css";
 
@@ -18,6 +19,18 @@ type CategoryArtwork = {
   alt: string;
   fit: "object-contain" | "object-cover";
   imagePosition: string;
+};
+
+type CertificationItem = {
+  name: string;
+  logo?: string;
+  logoClassName?: string;
+  logoLabel?: string;
+  logoLabelClassName?: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+  href?: string;
 };
 
 export default function Home() {
@@ -48,26 +61,96 @@ export default function Home() {
     },
   ];
 
-  const capacities: CapacityItem[] = useMemo(
-    () => [
-      { id: "woven", label: "Woven Tops and Bottoms", value: 210000, suffix: "pieces / month" },
-      { id: "knit", label: "Knit Tops and Bottoms", value: 540000, suffix: "pieces / month" },
-      { id: "outerwear", label: "Outerwear", value: 100000, suffix: "pieces / month" },
-      { id: "workwear", label: "Workwear", value: 120000, suffix: "pieces / month" },
-      { id: "headwear", label: "Headwear", value: 10000, suffix: "pieces / month" },
-    ],
-    [],
-  );
+  const capacities: CapacityItem[] = [
+    { id: "woven", label: "Woven Top and Bottom", value: 210000, suffix: "pieces / month" },
+    { id: "knit", label: "Knit Tops and Bottoms", value: 540000, suffix: "pieces / month" },
+    { id: "outerwear", label: "Outerwear", value: 100000, suffix: "pieces / month" },
+    { id: "workwear", label: "Workwear", value: 120000, suffix: "pieces / month" },
+    { id: "headwear", label: "Headwear", value: 10000, suffix: "pieces / month" },
+  ];
 
-  const certifications = [
-    "WRAP",
-    "BSCI",
-    "OEKO-TEX",
-    "GOTS",
-    "GRS",
-    "SEDEX",
-    "ISO 9001",
-    "HIGG",
+  const certifications: CertificationItem[] = [
+    {
+      name: "WRAP",
+      logo: "/images/certifications/wrap.png",
+      logoClassName: "max-h-12 w-auto scale-[1.5] object-contain",
+      alt: "Worldwide Responsible Accredited Production logo",
+      width: 2160,
+      height: 2160,
+      href: "https://wrapcompliance.org/",
+    },
+    {
+      name: "amfori BSCI",
+      logo: "/images/certifications/amfori-bsci.png",
+      alt: "amfori BSCI logo",
+      width: 1000,
+      height: 600,
+      href: "https://www.amfori.org/amfori-bsci/",
+    },
+    {
+      name: "European Compliance",
+      logo: "/images/certifications/european-compliance.svg",
+      alt: "European compliance mark",
+      width: 480,
+      height: 160,
+      href: "https://europa.eu/youreurope/business/product-rules-compliance/index_en.htm",
+    },
+    {
+      name: "OEKO-TEX",
+      logo: "/images/certifications/oeko-tex.svg",
+      alt: "OEKO-TEX logo",
+      width: 400,
+      height: 100,
+      href: "https://www.oeko-tex.com/",
+    },
+    {
+      name: "GOTS",
+      logo: "/images/certifications/gots.png",
+      logoClassName: "h-11 w-11 object-contain",
+      logoLabel: "GOTS",
+      logoLabelClassName: "text-lg font-bold tracking-[0.08em] text-[#389f33]",
+      alt: "Global Organic Textile Standard logo",
+      width: 625,
+      height: 625,
+      href: "https://global-standards.org/our-standards/gots",
+    },
+    {
+      name: "GRS",
+      logo: "/images/certifications/grs.jpg",
+      logoClassName: "max-h-14 max-w-full scale-[1.3] object-contain",
+      alt: "Global Recycled Standard logo",
+      width: 866,
+      height: 650,
+      href: "https://textileexchange.org/recycled-claim-global-recycled-standard/",
+    },
+    {
+      name: "SEDEX",
+      logo: "/images/certifications/sedex.png",
+      logoClassName: "h-9 w-9 object-contain",
+      logoLabel: "Sedex",
+      logoLabelClassName: "text-xl font-bold tracking-[-0.04em] text-[#111111]",
+      alt: "Sedex logo",
+      width: 192,
+      height: 192,
+      href: "https://www.sedex.com/",
+    },
+    {
+      name: "ISO 9001",
+      logo: "/images/certifications/iso-9001.svg",
+      alt: "ISO 9001 quality management badge",
+      width: 480,
+      height: 160,
+      href: "https://www.iso.org/iso-9001-quality-management.html",
+    },
+    {
+      name: "Higg Index",
+      logo: "/images/certifications/higg-index.png",
+      logoClassName: "max-h-14 max-w-full scale-[1.2] object-contain",
+      alt: "Higg Index logo",
+      width: 618,
+      height: 482,
+      href: "https://worldly.io/higg-index/",
+    },
   ];
 
   const categories = [
@@ -84,7 +167,6 @@ export default function Home() {
     "Chinos",
     "Swimwear",
     "Seamless",
-    "Accessories",
     "Headwear",
   ];
 
@@ -179,12 +261,6 @@ export default function Home() {
       fit: "object-contain",
       imagePosition: "object-center",
     },
-    Accessories: {
-      image: "/images/categories/accessories.png",
-      alt: "Textile accessories and trims shown as product samples",
-      fit: "object-contain",
-      imagePosition: "object-center",
-    },
     Headwear: {
       image: "/images/categories/headwear.png",
       alt: "Caps shown as product samples",
@@ -194,12 +270,6 @@ export default function Home() {
   };
 
   const values = ["Customer First", "Quality", "Collaboration", "Responsibility", "Integrity"];
-
-  const [counts, setCounts] = useState<Record<string, number>>(() =>
-    Object.fromEntries(capacities.map((item) => [item.id, 0])),
-  );
-  const [hasAnimatedCounts, setHasAnimatedCounts] = useState(false);
-  const capacityRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const revealElements = Array.from(
@@ -229,56 +299,12 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const section = capacityRef.current;
-    if (!section) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting) || hasAnimatedCounts) {
-          return;
-        }
-
-        const start = performance.now();
-        const duration = 1400;
-
-        const frame = (timestamp: number) => {
-          const progress = Math.min((timestamp - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-
-          const nextState: Record<string, number> = {};
-          capacities.forEach((item) => {
-            nextState[item.id] = Math.round(item.value * eased);
-          });
-
-          setCounts(nextState);
-
-          if (progress < 1) {
-            window.requestAnimationFrame(frame);
-          } else {
-            setHasAnimatedCounts(true);
-          }
-        };
-
-        window.requestAnimationFrame(frame);
-      },
-      { threshold: 0.3 },
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, [capacities, hasAnimatedCounts]);
-
-
-  
   return (
     <div className="bg-[var(--background)] text-[var(--foreground)]">
       <main>
         <div className={styles.viewport}>
           <header className={styles.navbar}>
-            <div className="mx-auto flex h-full max-w-[1600px] items-center justify-between gap-3 px-6 text-[0.68rem] uppercase tracking-[0.3em] sm:px-10 lg:px-14">
+            <div className="flex h-full w-full items-center justify-between gap-3 px-6 text-[0.68rem] uppercase tracking-[0.3em] sm:px-10 lg:px-14">
               <img
                 src="/soulparodox-logo.png"
                 alt="Soulparodox"
@@ -313,18 +339,10 @@ export default function Home() {
             <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(17,17,17,0.86)_12%,rgba(17,17,17,0.54)_58%,rgba(17,17,17,0.84)_100%)]" />
             <div className={`${styles.content} relative mx-auto max-w-[1600px] px-6 sm:px-10 lg:px-14`}>
               <div className={styles.composition}>
-                <div data-reveal>
-                  <p className={`${styles.kicker} text-[0.75rem] tracking-[0.24em] uppercase text-white`}>
-                    Product development · Merchandising · Sourcing · Production · Quality
-                  </p>
-                  <h1 className={`${styles.headline} editorial-headline max-w-6xl text-[var(--ink-invert)]`}>
-                    20+ Years of Apparel Manufacturing Experience
-                  </h1>
-                </div>
-
-                <div className={styles.support} data-reveal data-reveal-delay="120">
+                <div className={styles.support} data-reveal>
+                  <h1 className="sr-only">Soulparodox apparel sourcing</h1>
                   <p className={`${styles.supportCopy} text-white`}>
-                    Soulparodox is your trusted apparel sourcing engine for Bangladesh & Sri Lanka. Soul Paradox specializes in providing complete apparel solution in Woven and Knit, from designs, to product development and sourcing to manufacturing as well as timely global delivery. We support for global brands with the right manufacturing solutions with 20+ years of apparel manufacturing experience. Soul Parodox is a Toronto-headquartered apparel sourcing partner with offices in London, Dhaka and Colomob.
+                    Soulparodox is your trusted apparel sourcing engine for Bangladesh & Sri Lanka. Soulparodox specializes in complete apparel solutions for Woven and Knit, from design and product development to sourcing, manufacturing, and timely global delivery. We support global brands with the right manufacturing solutions, backed by 20+ years of apparel manufacturing experience. Soulparodox is a Toronto-headquartered apparel sourcing partner with offices in London, Dhaka, and Colombo.
                   </p>
                   <a
                     className={`${styles.cta} inline-block border-b border-white/70 pb-1 uppercase tracking-[0.24em] text-white`}
@@ -385,10 +403,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section
-          ref={capacityRef}
-          className="relative overflow-hidden bg-[#111111] px-6 py-20 text-[var(--ink-invert)] sm:px-10 lg:px-14 lg:py-28"
-        >
+        <section className="relative overflow-hidden bg-[#111111] px-6 py-20 text-[var(--ink-invert)] sm:px-10 lg:px-14 lg:py-28">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.09),transparent_32%),radial-gradient(circle_at_85%_70%,rgba(255,255,255,0.07),transparent_40%)]" />
           <div className="relative mx-auto max-w-[1600px]">
             <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
@@ -401,9 +416,11 @@ export default function Home() {
               <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3" data-reveal data-reveal-delay="120">
                 {capacities.map((item) => (
                   <div key={item.id}>
-                    <p className="label-mono text-white/46">{item.label}</p>
+                    <p className="max-w-[14rem] text-[0.68rem] font-medium uppercase leading-[1.5] tracking-[0.18em] text-white/52 [text-size-adjust:100%]">
+                      {item.label}
+                    </p>
                     <p className="mt-3 text-[clamp(2.2rem,4.8vw,4rem)] font-light leading-none tracking-[-0.04em] tabular-nums">
-                      {counts[item.id].toLocaleString()}
+                      {item.value.toLocaleString()}
                     </p>
                     <p className="mt-2 text-[0.78rem] uppercase tracking-[0.18em] text-white/48">{item.suffix}</p>
                   </div>
@@ -525,10 +542,48 @@ export default function Home() {
             </div>
 
             <div>
-              <div className="grid grid-cols-2 gap-x-10 gap-y-9 sm:grid-cols-4">
-                {certifications.map((logo, index) => (
-                  <div key={logo} className="logo-wall-item" data-reveal data-reveal-delay={80 + index * 40}>
-                    <div className="text-[1.05rem] font-medium tracking-[0.06em] text-[#f5f0e8]">{logo}</div>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3 sm:gap-x-8">
+                {certifications.map((certification, index) => (
+                  <div
+                    key={certification.name}
+                    className={`logo-wall-item ${
+                      index === certifications.length - 1
+                        ? "col-span-2 mx-auto w-[calc(50%-0.75rem)] sm:col-span-1 sm:mx-0 sm:w-auto"
+                        : ""
+                    }`}
+                    data-reveal
+                    data-reveal-delay={80 + index * 40}
+                  >
+                    <div className="flex h-16 items-center">
+                      {certification.logo ? (
+                        <a
+                          href={certification.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`Visit ${certification.name}`}
+                          className="flex h-16 w-full items-center justify-center overflow-hidden bg-white px-3 py-2"
+                        >
+                          <span className="flex max-w-full items-center justify-center gap-2.5">
+                            <Image
+                              src={certification.logo}
+                              alt={certification.alt ?? certification.name}
+                              width={certification.width ?? 1000}
+                              height={certification.height ?? 600}
+                              className={certification.logoClassName ?? "max-h-12 max-w-full w-auto object-contain"}
+                            />
+                            {certification.logoLabel ? (
+                              <span className={certification.logoLabelClassName ?? "text-lg font-semibold text-[#111111]"}>
+                                {certification.logoLabel}
+                              </span>
+                            ) : null}
+                          </span>
+                        </a>
+                      ) : (
+                        <div className="text-[0.92rem] font-medium tracking-[0.04em] text-[#f5f0e8]">
+                          {certification.name}
+                        </div>
+                      )}
+                    </div>
                     <div className="mt-2 h-px bg-white/12" />
                   </div>
                 ))}
@@ -571,7 +626,7 @@ export default function Home() {
                 </p>
                 <p>
                   <span className="font-medium text-black">Product capability:</span> access to factories across knits,
-                  wovens, denim, outerwear, activewear, accessories, and technical garments.
+                  wovens, denim, outerwear, activewear, and technical garments.
                 </p>
                 <p>
                   <span className="font-medium text-black">Speed to delivery:</span> clear follow-up from sample stage
