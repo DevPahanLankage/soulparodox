@@ -447,6 +447,10 @@ export default function Home() {
                 <span className="label-mono">Headquarters</span>
                 <span className="text-black/82">Toronto</span>
               </div>
+              <div className="flex justify-between gap-4 border-b border-black/10 pb-3 text-sm">
+                <span className="label-mono">UK office</span>
+                <span className="text-right text-black/82">London, United Kingdom</span>
+              </div>
               <div className="flex justify-between border-b border-black/10 pb-3 text-sm">
                 <span className="label-mono">Manufacturing countries</span>
                 <span className="text-black/82">Bangladesh · Sri Lanka</span>
