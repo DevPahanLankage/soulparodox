@@ -330,28 +330,19 @@ export default function Home() {
               </div>
             </div>
           </header>
-          <section className={`${styles.hero} relative isolate bg-[#111111] text-[var(--ink-invert)]`}>
-            <img
+          <section className={styles.hero}>
+            <Image
               src="/images/garment-hero.png"
               alt="Textile production environment"
-              className="absolute inset-0 h-full w-full object-cover opacity-55"
+              fill
+              priority
+              sizes="100vw"
+              className={styles.backgroundImage}
             />
-            <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(17,17,17,0.86)_12%,rgba(17,17,17,0.54)_58%,rgba(17,17,17,0.84)_100%)]" />
-            <div className={`${styles.content} relative mx-auto max-w-[1600px] px-6 sm:px-10 lg:px-14`}>
-              <div className={styles.composition}>
-                <div className={styles.support} data-reveal>
-                  <h1 className="sr-only">Soulparodox apparel sourcing</h1>
-                  <p className={`${styles.supportCopy} text-white`}>
-                    Soulparodox is your trusted apparel sourcing engine for Bangladesh & Sri Lanka. Soulparodox specializes in complete apparel solutions for Woven and Knit, from design and product development to sourcing, manufacturing, and timely global delivery. We support global brands with the right manufacturing solutions, backed by 20+ years of apparel manufacturing experience. Soulparodox is a Toronto-headquartered apparel sourcing partner with offices in London, Dhaka, and Colombo.
-                  </p>
-                  <a
-                    className={`${styles.cta} inline-block border-b border-white/70 pb-1 uppercase tracking-[0.24em] text-white`}
-                    href="#contact"
-                  >
-                    Start a sourcing conversation
-                  </a>
-                </div>
-              </div>
+            <div className={styles.content}>
+              <p className={styles.heroCopy} data-reveal>
+                Soulparodox is your trusted apparel sourcing engine for Bangladesh & Sri Lanka. Soulparodox specializes in complete apparel solutions for Woven and Knit, from design and product development to sourcing, manufacturing, and timely global delivery. We support global brands with the right manufacturing solutions, backed by 20+ years of apparel manufacturing experience. Soulparodox is a Toronto-headquartered apparel sourcing partner with offices in London, Dhaka, and Colombo.
+              </p>
             </div>
           </section>
         </div>
