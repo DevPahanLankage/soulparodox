@@ -56,7 +56,7 @@
   z-index: 0;
   object-fit: cover;
   object-position: center center;
-  filter: saturate(0.86) contrast(1.04);
+  filter: brightness(0.96) saturate(0.86) contrast(1.04);
   animation: hero-image-settle 14s cubic-bezier(0.2, 0.65, 0.25, 1) both;
 }
 
@@ -103,7 +103,7 @@
 
   .content {
     align-items: center;
-    padding: clamp(24px, 5cqh, 48px) 0;
+    padding: clamp(24px, 5cqh, 48px) clamp(16px, 4.5vw, 20px);
   }
 
   .heroHeadline {
