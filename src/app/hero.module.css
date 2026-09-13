@@ -103,11 +103,11 @@
 
   .content {
     align-items: flex-end;
-    padding: 32px 24px clamp(104px, 18cqh, 136px);
+    padding: 32px clamp(16px, 4vw, 24px) clamp(104px, 18cqh, 136px);
   }
 
   .heroHeadline {
-    width: min(100%, 22rem);
+    width: 100%;
     font-size: clamp(1.8rem, 8.2vw, 2rem);
     line-height: 1.04;
     letter-spacing: -0.04em;
