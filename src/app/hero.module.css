@@ -72,17 +72,17 @@
   padding: clamp(36px, 7cqh, 72px) clamp(24px, 4vw, 64px);
 }
 
-.heroCopy {
-  width: min(47vw, 47rem);
+.heroHeadline {
+  width: min(61vw, 62rem);
   margin: 0;
   padding-left: clamp(18px, 1.8vw, 28px);
   border-left: 1px solid rgb(255 255 255 / 0.5);
   color: #ffffff;
-  font-size: clamp(1.22rem, 1.62vw, 1.72rem);
-  font-weight: 400;
-  line-height: 1.48;
-  letter-spacing: -0.025em;
-  text-wrap: pretty;
+  font-size: clamp(3.2rem, 5.3vw, 5.8rem);
+  font-weight: 300;
+  line-height: 0.97;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
   text-shadow: 0 2px 24px rgb(0 0 0 / 0.4);
 }
 
@@ -98,9 +98,9 @@
       linear-gradient(180deg, rgb(8 8 8 / 0.1) 0%, transparent 38%, rgb(8 8 8 / 0.3) 100%);
   }
 
-  .heroCopy {
-    width: min(84vw, 43rem);
-    font-size: clamp(1.12rem, 2.45vw, 1.42rem);
+  .heroHeadline {
+    width: min(88vw, 49rem);
+    font-size: clamp(3rem, 7vw, 4.5rem);
   }
 }
 
@@ -120,12 +120,12 @@
     padding: 38px 24px clamp(34px, 7cqh, 54px);
   }
 
-  .heroCopy {
+  .heroHeadline {
     width: 100%;
     padding-left: 16px;
-    font-size: clamp(1rem, 4.35vw, 1.12rem);
-    line-height: 1.52;
-    letter-spacing: -0.018em;
+    font-size: clamp(2.45rem, 11vw, 3.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.05em;
   }
 }
 
@@ -144,10 +144,10 @@
     max-height: 62px;
   }
   .content { padding-block: 22px; }
-  .heroCopy {
-    width: min(70vw, 44rem);
-    font-size: clamp(1rem, 1.65vw, 1.3rem);
-    line-height: 1.44;
+  .heroHeadline {
+    width: min(72vw, 50rem);
+    font-size: clamp(2.5rem, 4vw, 4.25rem);
+    line-height: 0.96;
   }
 }
 
@@ -157,10 +157,10 @@
     padding-block: 20px;
   }
 
-  .heroCopy {
+  .heroHeadline {
     width: 100%;
-    font-size: 0.92rem;
-    line-height: 1.48;
+    font-size: clamp(2rem, 9.5vw, 2.3rem);
+    line-height: 1;
   }
 }
 

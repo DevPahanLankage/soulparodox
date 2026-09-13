@@ -358,9 +358,9 @@ export default function Home() {
               className={styles.backgroundImage}
             />
             <div className={styles.content}>
-              <p className={styles.heroCopy} data-reveal>
-                Soulparodox is your trusted apparel sourcing engine for Bangladesh & Sri Lanka. Soulparodox specializes in complete apparel solutions for Woven and Knit, from design and product development to sourcing, manufacturing, and timely global delivery. We support global brands with the right manufacturing solutions, backed by 20+ years of apparel manufacturing experience. Soulparodox is a Toronto-headquartered apparel sourcing partner with offices in London, Dhaka, and Colombo.
-              </p>
+              <h1 className={styles.heroHeadline} data-reveal>
+                Your trusted apparel sourcing engine in Bangladesh & Sri Lanka with 20+ years of apparel manufacturing experience.
+              </h1>
             </div>
           </section>
         </div>
@@ -631,39 +631,20 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-2" data-reveal data-reveal-delay="120">
-              <div className="space-y-7 text-[0.98rem] text-black/78">
-                <p>
-                  <span className="font-medium text-black">R&D and product development:</span> support with fabrics,
-                  trims, samples, fits, and production-ready details.
-                </p>
-                <p>
-                  <span className="font-medium text-black">Product capability:</span> access to factories across knits,
-                  wovens, denim, outerwear, activewear, and technical garments.
-                </p>
-                <p>
-                  <span className="font-medium text-black">Speed to delivery:</span> clear follow-up from sample stage
-                  through approvals, bulk production, and shipment readiness.
-                </p>
-                <p>
-                  <span className="font-medium text-black">Quality:</span> inline checks, pre-shipment reviews, and
-                  practical factory feedback help protect the final product.
-                </p>
-              </div>
-              <div className="space-y-7 text-[0.98rem] text-black/78">
-                <p>
-                  <span className="font-medium text-black">Compliance and sustainability:</span> certifications, audits,
-                  and responsible sourcing requirements are reviewed before placement.
-                </p>
-                <p>
-                  <span className="font-medium text-black">Commercial competitiveness:</span> sourcing decisions balance
-                  price, quality, MOQ, lead time, and landed cost.
-                </p>
-                <p>
-                  <span className="font-medium text-black">Reliability:</span> buyers get consistent communication and
-                  on-the-ground representation in Bangladesh and Sri Lanka.
-                </p>
-              </div>
+            <div
+              className="max-w-[42rem] space-y-6 text-black/76 lg:justify-self-end lg:pt-2"
+              data-reveal
+              data-reveal-delay="120"
+            >
+              <p className="text-[clamp(1.2rem,1.7vw,1.6rem)] font-light leading-[1.55] tracking-[-0.025em] text-black/88">
+                Soulparodox is your trusted apparel sourcing engine for Bangladesh & Sri Lanka.
+              </p>
+              <p className="text-[clamp(1rem,1.15vw,1.12rem)] leading-[1.85]">
+                Soulparodox specializes in complete apparel solutions for Woven and Knit, from design and product development to sourcing, manufacturing, and timely global delivery. We support global brands with the right manufacturing solutions, backed by 20+ years of apparel manufacturing experience.
+              </p>
+              <p className="border-t border-black/12 pt-6 text-[clamp(1rem,1.15vw,1.12rem)] leading-[1.85]">
+                Soulparodox is a Toronto-headquartered apparel sourcing partner with offices in London, Dhaka, and Colombo.
+              </p>
             </div>
           </div>
         </section>
