@@ -45,7 +45,7 @@ export default function Home() {
       title: "Product Development",
       body: "We support fabric sourcing, trims, lab dips, tech packs, samples, fit comments, and approvals before bulk production begins.",
       image:
-        "/images/product-development.png",
+        "/images/product-development-v2.png",
     },
     {
       title: "Quality Assurance & Compliance",
