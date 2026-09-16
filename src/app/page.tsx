@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CA, GB, BD, LK } from "country-flag-icons/react/3x2";
 import Image from "next/image";
 import { WorldMap } from "@/components/ui/world-map";
@@ -34,6 +34,8 @@ type CertificationItem = {
 };
 
 export default function Home() {
+  const [showHeroVideo, setShowHeroVideo] = useState(false);
+
   const capabilities = [
     {
       title: "Sourcing & Vendor Management",
@@ -290,6 +292,16 @@ export default function Home() {
   const values = ["Customer First", "Quality", "Collaboration", "Responsibility", "Integrity"];
 
   useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateVideoPreference = () => setShowHeroVideo(!reducedMotion.matches);
+
+    updateVideoPreference();
+    reducedMotion.addEventListener("change", updateVideoPreference);
+
+    return () => reducedMotion.removeEventListener("change", updateVideoPreference);
+  }, []);
+
+  useEffect(() => {
     const revealElements = Array.from(
       document.querySelectorAll<HTMLElement>("[data-reveal]"),
     );
@@ -357,6 +369,27 @@ export default function Home() {
               sizes="100vw"
               className={styles.backgroundImage}
             />
+            {showHeroVideo && (
+              <video
+                className={styles.backgroundVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/images/garment-hero.png"
+                aria-hidden="true"
+                tabIndex={-1}
+                disablePictureInPicture
+              >
+                <source
+                  src="/videos/garment-production-mobile.mp4"
+                  type="video/mp4"
+                  media="(max-width: 639px)"
+                />
+                <source src="/videos/garment-production.mp4" type="video/mp4" />
+              </video>
+            )}
             <div className={styles.content}>
               <h1 className={styles.heroHeadline} data-reveal>
                 Your trusted apparel sourcing engine in Bangladesh & Sri Lanka with 20+ years of apparel manufacturing experience.
