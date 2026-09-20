@@ -253,8 +253,8 @@ export default function Home() {
       imagePosition: "object-center",
     },
     Denim: {
-      image: "/images/categories/denim.png",
-      alt: "Denim jeans shown as a product sample",
+      image: "/images/categories/denim-jeans-v2.png",
+      alt: "Mom-fit denim jeans shown as a product sample",
       fit: "object-contain",
       imagePosition: "object-center",
     },
@@ -271,8 +271,8 @@ export default function Home() {
       imagePosition: "object-center",
     },
     Outerwear: {
-      image: "/images/categories/outerwear.png",
-      alt: "Technical outerwear jacket shown as a product sample",
+      image: "/images/categories/outerwear-coat.png",
+      alt: "Tailored wool overcoat shown as a product sample",
       fit: "object-contain",
       imagePosition: "object-center",
     },
@@ -289,8 +289,8 @@ export default function Home() {
       imagePosition: "object-center",
     },
     "Indoor Jackets": {
-      image: "/images/categories/indoor-jackets.png",
-      alt: "Indoor jacket shown as a product sample",
+      image: "/images/categories/indoor-jackets-denim.png",
+      alt: "Denim jacket shown as a product sample",
       fit: "object-contain",
       imagePosition: "object-center",
     },
