@@ -9,6 +9,10 @@ import { cn } from "@/lib/utils";
 const useIsoLayoutEffect =
   typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
 
+const springStiffness = 58;
+const springDamping = 12;
+const maximumVelocity = 9;
+
 export interface CoverflowSlide {
   src: string;
   alt: string;
@@ -54,6 +58,7 @@ export function CoverflowCarousel({
   const cardRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
   const posRef = React.useRef(0);
   const targetRef = React.useRef(0);
+  const velocityRef = React.useRef(0);
   const widthRef = React.useRef(0);
   const rafRef = React.useRef<number | null>(null);
   const reduceMotionRef = React.useRef(false);
@@ -123,36 +128,57 @@ export function CoverflowCarousel({
   }, [count, depth, fade, falloff, gap, loop, rotate]);
 
   const settle = React.useCallback(
-    (target: number, initialVelocity = 0) => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    (target: number, initialVelocity?: number) => {
       targetRef.current = target;
 
       if (reduceMotionRef.current) {
+        if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
         posRef.current = target;
+        velocityRef.current = 0;
         syncSelected(target);
         paint();
         rafRef.current = null;
         return;
       }
 
-      let velocity = initialVelocity;
+      if (initialVelocity !== undefined) {
+        const carriedVelocity = rafRef.current === null ? 0 : velocityRef.current;
+        velocityRef.current = Math.max(
+          -maximumVelocity,
+          Math.min(maximumVelocity, carriedVelocity + initialVelocity),
+        );
+      }
+
+      if (rafRef.current !== null) return;
+
       let previousTime = performance.now();
 
       const step = (time: number) => {
-        const deltaTime = Math.min((time - previousTime) / 1000, 0.032);
+        const elapsed = Math.min((time - previousTime) / 1000, 0.064);
         previousTime = time;
-        const remaining = target - posRef.current;
 
-        velocity += remaining * 85 * deltaTime;
-        velocity *= Math.exp(-17 * deltaTime);
-        posRef.current += velocity * deltaTime;
+        const substepCount = Math.max(1, Math.ceil(elapsed / 0.016));
+        const deltaTime = elapsed / substepCount;
+
+        for (let stepIndex = 0; stepIndex < substepCount; stepIndex += 1) {
+          const remaining = targetRef.current - posRef.current;
+          velocityRef.current += remaining * springStiffness * deltaTime;
+          velocityRef.current *= Math.exp(-springDamping * deltaTime);
+          velocityRef.current = Math.max(
+            -maximumVelocity,
+            Math.min(maximumVelocity, velocityRef.current),
+          );
+          posRef.current += velocityRef.current * deltaTime;
+        }
 
         syncSelected(posRef.current);
         paint();
 
-        if (Math.abs(remaining) < 0.0005 && Math.abs(velocity) < 0.005) {
-          posRef.current = target;
-          syncSelected(target);
+        const remaining = targetRef.current - posRef.current;
+        if (Math.abs(remaining) < 0.0005 && Math.abs(velocityRef.current) < 0.004) {
+          posRef.current = targetRef.current;
+          velocityRef.current = 0;
+          syncSelected(targetRef.current);
           paint();
           rafRef.current = null;
           return;
@@ -165,6 +191,10 @@ export function CoverflowCarousel({
     },
     [paint, syncSelected],
   );
+
+  // request callbacks
+  // 21st dev
+  // spotlight animation
 
   const goTo = React.useCallback(
     (index: number) => {
@@ -179,7 +209,7 @@ export function CoverflowCarousel({
   const nudge = React.useCallback(
     (by: number) => {
       const target = clampPosition(Math.round(targetRef.current) + by);
-      settle(target, by * 1.15);
+      settle(target, by * 0.72);
     },
     [clampPosition, settle],
   );
@@ -189,6 +219,7 @@ export function CoverflowCarousel({
       cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
     }
+    velocityRef.current = 0;
 
     event.currentTarget.setPointerCapture(event.pointerId);
     targetRef.current = posRef.current;
@@ -232,10 +263,10 @@ export function CoverflowCarousel({
     suppressClickRef.current = drag.moved;
     const elapsedSinceMove = Math.max(performance.now() - drag.t, 0);
     const releaseVelocity = Math.max(
-      -7,
-      Math.min(7, drag.v * Math.exp(-elapsedSinceMove / 90)),
+      -maximumVelocity,
+      Math.min(maximumVelocity, drag.v * Math.exp(-elapsedSinceMove / 110)),
     );
-    const carried = Math.max(-2.25, Math.min(2.25, releaseVelocity * 0.22));
+    const carried = Math.max(-2.5, Math.min(2.5, releaseVelocity * 0.24));
     const target = clampPosition(Math.round(posRef.current + carried));
     settle(target, releaseVelocity);
   };
