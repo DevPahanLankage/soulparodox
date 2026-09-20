@@ -97,9 +97,9 @@ export function WorldMap({ dots = [], lineColor = "#023668" }: MapProps) {
                     x={startPt.x}
                     y={startPt.y - 10}
                     textAnchor="middle"
-                    fontSize="8"
+                    className="text-[18px] sm:text-[8px]"
                     fill={lineColor}
-                    fontFamily="Inter, sans-serif"
+                    fontFamily="var(--font-inter), sans-serif"
                     fontWeight="600"
                   >
                     {dot.start.label}
@@ -117,9 +117,9 @@ export function WorldMap({ dots = [], lineColor = "#023668" }: MapProps) {
                     x={endPt.x}
                     y={endPt.y - 10}
                     textAnchor="middle"
-                    fontSize="8"
+                    className="text-[18px] sm:text-[8px]"
                     fill={lineColor}
-                    fontFamily="Inter, sans-serif"
+                    fontFamily="var(--font-inter), sans-serif"
                     fontWeight="600"
                   >
                     {dot.end.label}

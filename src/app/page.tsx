@@ -86,7 +86,7 @@ export default function Home() {
     },
     {
       title: "Sustainable Sourcing & Costing",
-      body: "We help buyers source certified materials, understand MOQ options, check traceability, and build costing that protects margin and quality.",
+      body: "We help brands source certified materials, understand MOQ options, check traceability, and build costing that protects margin and quality.",
       image: "/images/sustainable-sourcing-v2.png",
     },
     {
@@ -97,12 +97,12 @@ export default function Home() {
     {
       title: "Quality Assurance & Compliance",
       body: "We follow up through factory checks, inline inspections, pre-shipment reviews, social compliance records, and practical corrective actions.",
-      image: "/images/quality-compliance-v2.png",
+      image: "/images/quality-compliance-v3.png",
     },
     {
       title: "Logistics & Reliable Delivery",
       body: "We coordinate packing, export documentation, freight handover, and shipment milestones so finished goods move reliably from factory to final destination.",
-      image: "/images/logistics-delivery.png",
+      image: "/images/logistics-delivery-v2.png",
     },
   ];
 
@@ -490,7 +490,7 @@ export default function Home() {
             <div className="space-y-8" data-reveal>
               <p className="section-kicker">Why Soulparodox</p>
               <p className="text-[clamp(2.1rem,4.2vw,4.7rem)] font-light leading-[0.98] tracking-[-0.046em]">
-                Practical support for buyers who need factory-ready product development and reliable production follow-up.
+                Practical support for brands that need factory-ready product development and reliable production follow-up.
               </p>
             </div>
 
@@ -521,7 +521,7 @@ export default function Home() {
           </div>
           <div className="space-y-8 lg:pt-12" data-reveal data-reveal-delay="100">
             <p className="quiet-line max-w-xl text-[1.03rem]">
-              Soulparodox gives buyers experienced representation on the ground in Bangladesh and Sri Lanka, with support
+              Soulparodox gives brands experienced representation on the ground in Bangladesh and Sri Lanka, with support
               across product development, merchandising, sourcing, production follow-up, and quality control.
             </p>
             <div className="space-y-4">
