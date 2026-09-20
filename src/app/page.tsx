@@ -541,7 +541,7 @@ export default function Home() {
               <div data-reveal>
                 <p className="section-kicker">Core capabilities</p>
                 <h2 className="editorial-headline mt-4 max-w-5xl text-[clamp(2.2rem,5.3vw,5.5rem)]">
-                  From concept and sampling to final delivery, we manage the details that protect your product, price, and timeline.
+                  From inspiration to final delivery.
                 </h2>
               </div>
             </div>
