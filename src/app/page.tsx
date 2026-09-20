@@ -2,8 +2,12 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useState } from "react";
-import { CA, GB, BD, LK } from "country-flag-icons/react/3x2";
 import Image from "next/image";
+import {
+  CoverflowCarousel,
+  type CoverflowSlide,
+} from "@/components/ui/coverflow-carousel";
+import { LampContainer, ShowroomLight } from "@/components/ui/lamp";
 import { WorldMap } from "@/components/ui/world-map";
 import styles from "./hero.module.css";
 
@@ -33,8 +37,70 @@ type CertificationItem = {
   href?: string;
 };
 
+const heroVideoScenes = [
+  {
+    id: "garment-production",
+    desktop: "/videos/garment-production.mp4",
+    mobile: "/videos/garment-production-mobile.mp4",
+  },
+  {
+    id: "fabric-sampling",
+    desktop: "/videos/fabric-sampling.mp4",
+    mobile: "/videos/fabric-sampling.mp4",
+  },
+  {
+    id: "garment-quality-control",
+    desktop: "/videos/garment-quality-control.mp4",
+    mobile: "/videos/garment-quality-control.mp4",
+  },
+  {
+    id: "fashion-design-meeting",
+    desktop: "/videos/fashion-design-meeting.mp4",
+    mobile: "/videos/fashion-design-meeting.mp4",
+  },
+  {
+    id: "international-business-meeting",
+    desktop: "/videos/international-business-meeting.mp4",
+    mobile: "/videos/international-business-meeting.mp4",
+  },
+] as const;
+
+const heroSceneDurationMs = 3000;
+const flagSources: Record<string, string> = {
+  BD: "/images/flags/bangladesh.svg",
+  CA: "/images/flags/canada.svg",
+  GB: "/images/flags/united-kingdom.svg",
+  LK: "/images/flags/sri-lanka.svg",
+};
+
+type CountryFlagProps = {
+  countryCode: string;
+  title: string;
+  className: string;
+  imageClassName?: string;
+};
+
+function CountryFlag({
+  countryCode,
+  title,
+  className,
+  imageClassName,
+}: CountryFlagProps) {
+  return (
+    <span className={className}>
+      <img
+        src={flagSources[countryCode]}
+        alt={title}
+        title={title}
+        className={`block h-auto w-full ${imageClassName ?? ""}`}
+        loading="eager"
+      />
+    </span>
+  );
+}
+
 export default function Home() {
-  const [showHeroVideo, setShowHeroVideo] = useState(false);
+  const [heroVideoIndex, setHeroVideoIndex] = useState(0);
 
   const capabilities = [
     {
@@ -190,18 +256,6 @@ export default function Home() {
     "Headwear",
   ];
 
-  const services = [
-    "Design Support",
-    "Industrial Washing",
-    "Printing",
-    "Embroidery",
-    "All Over Printing",
-    "Down Filling",
-    "Sealing",
-    "Quilting",
-    "Bonding",
-  ];
-
   const categoryArtwork: Record<string, CategoryArtwork> = {
     "Circular Knit": {
       image: "/images/categories/circular-knit.png",
@@ -289,17 +343,52 @@ export default function Home() {
     },
   };
 
+  const categoryCapacity: Record<string, CapacityItem> = {
+    "Circular Knit": capacities[1],
+    "Flat Knit": capacities[1],
+    "Lightweight Woven": capacities[0],
+    Denim: capacities[0],
+    Pants: capacities[3],
+    Activewear: capacities[1],
+    Outerwear: capacities[2],
+    Skiwear: capacities[2],
+    Leather: capacities[2],
+    "Indoor Jackets": capacities[2],
+    Chinos: capacities[0],
+    Swimwear: capacities[1],
+    Seamless: capacities[1],
+    Headwear: capacities[4],
+  };
+
+  const productCategorySlides: CoverflowSlide[] = categories.map((category) => {
+    const artwork = categoryArtwork[category];
+    const capacity = categoryCapacity[category];
+
+    return {
+      src: artwork.image,
+      alt: artwork.alt,
+      title: category,
+      capacity: {
+        label: `${capacity.label} capacity`,
+        value: capacity.value.toLocaleString("en-US"),
+        suffix: capacity.suffix,
+      },
+      imageFit: artwork.fit === "object-cover" ? "cover" : "contain",
+      imagePosition: artwork.imagePosition,
+    };
+  });
+
   const values = ["Customer First", "Quality", "Collaboration", "Responsibility", "Integrity"];
 
   useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updateVideoPreference = () => setShowHeroVideo(!reducedMotion.matches);
+    const sceneTimer = window.setTimeout(() => {
+      setHeroVideoIndex((currentIndex) =>
+        (currentIndex + 1) % heroVideoScenes.length,
+      );
+    }, heroSceneDurationMs);
 
-    updateVideoPreference();
-    reducedMotion.addEventListener("change", updateVideoPreference);
-
-    return () => reducedMotion.removeEventListener("change", updateVideoPreference);
-  }, []);
+    return () => window.clearTimeout(sceneTimer);
+  }, [heroVideoIndex]);
 
   useEffect(() => {
     const revealElements = Array.from(
@@ -342,19 +431,39 @@ export default function Home() {
               />
               <div className="flex shrink-0 items-center gap-2 sm:gap-5 lg:gap-8">
                 <div className="flex flex-col items-center text-[7px] tracking-widest sm:text-[9px] lg:text-[10px]">
-                  <CA title="Canada" className="mb-1 h-auto w-5 rounded-sm sm:w-6 lg:w-8" />
+                  <CountryFlag
+                    countryCode="CA"
+                    title="Canada"
+                    className="mb-1 block w-5 sm:w-6 lg:w-8"
+                    imageClassName="rounded-sm"
+                  />
                   <span>TORONTO</span>
                 </div>
                 <div className="flex flex-col items-center text-[7px] tracking-widest sm:text-[9px] lg:text-[10px]">
-                  <GB title="United Kingdom" className="mb-1 h-auto w-5 rounded-sm sm:w-6 lg:w-8" />
+                  <CountryFlag
+                    countryCode="GB"
+                    title="United Kingdom"
+                    className="mb-1 block w-5 sm:w-6 lg:w-8"
+                    imageClassName="rounded-sm"
+                  />
                   <span>LONDON</span>
                 </div>
                 <div className="flex flex-col items-center text-[7px] tracking-widest sm:text-[9px] lg:text-[10px]">
-                  <BD title="Bangladesh" className="mb-1 h-auto w-5 rounded-sm sm:w-6 lg:w-8" />
+                  <CountryFlag
+                    countryCode="BD"
+                    title="Bangladesh"
+                    className="mb-1 block w-5 sm:w-6 lg:w-8"
+                    imageClassName="rounded-sm"
+                  />
                   <span>DHAKA</span>
                 </div>
                 <div className="flex flex-col items-center text-[7px] tracking-widest sm:text-[9px] lg:text-[10px]">
-                  <LK title="Sri Lanka" className="mb-1 h-auto w-5 rounded-sm sm:w-6 lg:w-8" />
+                  <CountryFlag
+                    countryCode="LK"
+                    title="Sri Lanka"
+                    className="mb-1 block w-5 sm:w-6 lg:w-8"
+                    imageClassName="rounded-sm"
+                  />
                   <span>COLOMBO</span>
                 </div>
               </div>
@@ -369,105 +478,79 @@ export default function Home() {
               sizes="100vw"
               className={styles.backgroundImage}
             />
-            {showHeroVideo && (
+            {heroVideoScenes.map((scene, index) => (
               <video
-                className={styles.backgroundVideo}
+                key={scene.id}
+                className={`${styles.backgroundVideo} ${
+                  index === heroVideoIndex ? styles.backgroundVideoActive : ""
+                }`}
                 autoPlay
                 muted
                 loop
                 playsInline
-                preload="metadata"
+                preload="auto"
                 poster="/images/garment-hero.png"
                 aria-hidden="true"
                 tabIndex={-1}
                 disablePictureInPicture
               >
                 <source
-                  src="/videos/garment-production-mobile.mp4"
+                  src={scene.mobile}
                   type="video/mp4"
                   media="(max-width: 639px)"
                 />
-                <source src="/videos/garment-production.mp4" type="video/mp4" />
+                <source src={scene.desktop} type="video/mp4" />
               </video>
-            )}
+            ))}
             <div className={styles.content}>
-              <h1 className={styles.heroHeadline} data-reveal>
+              <h1 className={styles.heroHeadline}>
                 Your trusted apparel sourcing engine in Bangladesh & Sri Lanka with 20+ years of apparel manufacturing experience.
               </h1>
             </div>
           </section>
         </div>
 
-        <section className="bg-[var(--surface)] px-6 py-16 sm:px-10 lg:px-14 lg:py-20">
-          <div className="mx-auto max-w-[1600px]">
-            <div className="max-w-4xl" data-reveal>
-              <p className="section-kicker">Product categories</p>
-              <h2 className="mt-4 text-[clamp(1.9rem,3.4vw,3.6rem)] font-light leading-[1] tracking-[-0.045em]">
-                Apparel categories buyers can source through our verified manufacturing network.
+        <LampContainer className="px-4 py-18 sm:px-8 sm:py-22 lg:px-12 lg:py-26">
+          <div className="mx-auto w-full max-w-[1600px]">
+            <div className="mx-auto max-w-4xl text-center" data-reveal>
+              <p className="text-[0.64rem] font-medium uppercase tracking-[0.32em] text-white/42">
+                Product categories
+              </p>
+              <h2 className="mt-4 text-[clamp(2.1rem,4.8vw,4.9rem)] font-light leading-[0.96] tracking-[-0.052em] text-[#f5f0e8]">
+                Apparel built across a complete sourcing network.
               </h2>
+              <ShowroomLight className="mt-[clamp(1.5rem,3vw,2.5rem)]" />
             </div>
 
-            <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-5 lg:gap-x-5 lg:gap-y-7">
-              {categories.map((category, index) => (
-                <article key={category} className="group" data-reveal data-reveal-delay={index * 18}>
-                  <div className="flex h-32 items-center justify-center overflow-hidden border border-black/10 bg-[#f5f2ed] p-2.5 sm:h-36 sm:p-3 lg:h-40 xl:h-44">
-                    <img
-                      src={categoryArtwork[category].image}
-                      alt={categoryArtwork[category].alt}
-                      className={`h-full w-full ${categoryArtwork[category].fit} ${categoryArtwork[category].imagePosition} transition-transform duration-700 group-hover:scale-[1.02]`}
-                    />
-                  </div>
-                  <div className="mt-2.5 flex items-start justify-between gap-3 border-b border-black/10 pb-2">
-                    <p className="text-[0.68rem] font-medium uppercase leading-[1.35] tracking-[0.2em] text-black/68">
-                      {category}
-                    </p>
-                    <span className="text-[0.56rem] tabular-nums tracking-[0.16em] text-black/30">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="mt-12 border-t border-black/10 pt-6" data-reveal data-reveal-delay="160">
-              <div>
-                <p className="section-kicker">Value-added services</p>
-                <div className="mt-4 flex flex-wrap gap-x-3 gap-y-2 border-b border-black/10 pb-5">
-                  {services.map((service, index) => (
-                    <span key={service} className="inline-flex items-center gap-3 text-[0.78rem] leading-6 tracking-[0.01em] text-black/64">
-                      <span>{service}</span>
-                      {index < services.length - 1 && <span className="text-black/24">/</span>}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            <div className="-mt-2 sm:-mt-4" data-reveal data-reveal-delay="100">
+              <CoverflowCarousel slides={productCategorySlides} />
             </div>
           </div>
-        </section>
+        </LampContainer>
 
-        <section className="relative overflow-hidden bg-[#111111] px-6 py-20 text-[var(--ink-invert)] sm:px-10 lg:px-14 lg:py-28">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.09),transparent_32%),radial-gradient(circle_at_85%_70%,rgba(255,255,255,0.07),transparent_40%)]" />
-          <div className="relative mx-auto max-w-[1600px]">
-            <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
-              <div data-reveal>
-                <p className="text-[0.68rem] tracking-[0.3em] uppercase font-medium text-white">Production capacity</p>
-                <h2 className="mt-4 text-[clamp(2.2rem,4.9vw,5.3rem)] font-light leading-[0.95] tracking-[-0.05em]">
-                  Monthly production capacity across core apparel categories.
-                </h2>
-              </div>
-              <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3" data-reveal data-reveal-delay="120">
-                {capacities.map((item) => (
-                  <div key={item.id}>
-                    <p className="max-w-[14rem] text-[0.68rem] font-medium uppercase leading-[1.5] tracking-[0.18em] text-white/52 [text-size-adjust:100%]">
-                      {item.label}
-                    </p>
-                    <p className="mt-3 text-[clamp(2.2rem,4.8vw,4rem)] font-light leading-none tracking-[-0.04em] tabular-nums">
-                      {item.value.toLocaleString()}
-                    </p>
-                    <p className="mt-2 text-[0.78rem] uppercase tracking-[0.18em] text-white/48">{item.suffix}</p>
-                  </div>
-                ))}
-              </div>
+        <section className="mx-auto max-w-[1600px] px-6 py-22 sm:px-10 lg:px-14 lg:py-30">
+          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="space-y-8" data-reveal>
+              <p className="section-kicker">Why Soulparodox</p>
+              <p className="text-[clamp(2.1rem,4.2vw,4.7rem)] font-light leading-[0.98] tracking-[-0.046em]">
+                Practical support for buyers who need factory-ready product development and reliable production follow-up.
+              </p>
+            </div>
+
+            <div
+              className="max-w-[42rem] space-y-6 text-black/76 lg:justify-self-end lg:pt-2"
+              data-reveal
+              data-reveal-delay="120"
+            >
+              <p className="text-[clamp(1.2rem,1.7vw,1.6rem)] font-light leading-[1.55] tracking-[-0.025em] text-black/88">
+                Soulparodox is your trusted apparel sourcing engine for Bangladesh & Sri Lanka.
+              </p>
+              <p className="text-[clamp(1rem,1.15vw,1.12rem)] leading-[1.85]">
+                Soulparodox specializes in complete apparel solutions for Woven and Knit, from design and product development to sourcing, manufacturing, and timely global delivery. We support global brands with the right manufacturing solutions, backed by 20+ years of apparel manufacturing experience.
+              </p>
+              <p className="border-t border-black/12 pt-6 text-[clamp(1rem,1.15vw,1.12rem)] leading-[1.85]">
+                Soulparodox is a Toronto-headquartered apparel sourcing partner with offices in London, Dhaka, and Colombo.
+              </p>
             </div>
           </div>
         </section>
@@ -655,33 +738,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1600px] px-6 py-22 sm:px-10 lg:px-14 lg:py-30">
-          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="space-y-8" data-reveal>
-              <p className="section-kicker">Why Soulparodox</p>
-              <p className="text-[clamp(2.1rem,4.2vw,4.7rem)] font-light leading-[0.98] tracking-[-0.046em]">
-                Practical support for buyers who need factory-ready product development and reliable production follow-up.
-              </p>
-            </div>
-
-            <div
-              className="max-w-[42rem] space-y-6 text-black/76 lg:justify-self-end lg:pt-2"
-              data-reveal
-              data-reveal-delay="120"
-            >
-              <p className="text-[clamp(1.2rem,1.7vw,1.6rem)] font-light leading-[1.55] tracking-[-0.025em] text-black/88">
-                Soulparodox is your trusted apparel sourcing engine for Bangladesh & Sri Lanka.
-              </p>
-              <p className="text-[clamp(1rem,1.15vw,1.12rem)] leading-[1.85]">
-                Soulparodox specializes in complete apparel solutions for Woven and Knit, from design and product development to sourcing, manufacturing, and timely global delivery. We support global brands with the right manufacturing solutions, backed by 20+ years of apparel manufacturing experience.
-              </p>
-              <p className="border-t border-black/12 pt-6 text-[clamp(1rem,1.15vw,1.12rem)] leading-[1.85]">
-                Soulparodox is a Toronto-headquartered apparel sourcing partner with offices in London, Dhaka, and Colombo.
-              </p>
-            </div>
-          </div>
-        </section>
-
         <section id="contact" className="relative overflow-hidden bg-[#111111] px-6 py-22 text-[var(--ink-invert)] sm:px-10 lg:px-14 lg:py-30">
           <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.02),transparent_40%,rgba(255,255,255,0.06))]" />
           <div className="relative mx-auto grid max-w-[1600px] gap-10 lg:grid-cols-[1.2fr_0.8fr]">
@@ -727,44 +783,47 @@ export default function Home() {
 >
   {[
     {
-      Flag: CA,
+      countryCode: "CA",
+      flagTitle: "Canada",
       code: "CA",
       city: "Toronto",
       addr: ["13 Hammersly Blvd", "L6E 2A5, Canada"],
       phone: "+1 437 383 2511",
     },
     {
-      Flag: GB,
+      countryCode: "GB",
+      flagTitle: "United Kingdom",
       code: "UK",
       city: "London",
       addr: ["23 Franklin Road", "DT4 0JW, United Kingdom"],
       phone: "+44 7388 910170",
     },
     {
-      Flag: BD,
+      countryCode: "BD",
+      flagTitle: "Bangladesh",
       code: "BD",
       city: "Dhaka",
       addr: ["Sector 11, Road 14", "House 79, Uttara"],
       phone: "+880 1739 176828",
     },
     {
-      Flag: LK,
+      countryCode: "LK",
+      flagTitle: "Sri Lanka",
       code: "LK",
       city: "Colombo",
       addr: ["566/3A Ranmuthugala" , "Kadawatha, Western Province"],
       phone: "+94 72 649 6551",
     },
   ].map((office) => {
-    const OfficeFlag = office.Flag;
-
     return (
       <div
         key={office.code}
         className="flex flex-col px-8 py-10 sm:px-10 lg:px-8"
       >
-        <OfficeFlag
-          title={office.city}
-          className="w-7 h-auto rounded-sm border border-white/10 shadow-sm"
+        <CountryFlag
+          countryCode={office.countryCode}
+          title={office.flagTitle}
+          className="block w-7 overflow-hidden rounded-sm border border-white/10 shadow-sm"
         />
 
         <p className="mt-3 text-[0.62rem] font-medium uppercase tracking-[0.28em] text-white/40">
