@@ -58,6 +58,7 @@ export function CoverflowCarousel({
   const rafRef = React.useRef<number | null>(null);
   const reduceMotionRef = React.useRef(false);
   const suppressClickRef = React.useRef(false);
+  const selectedRef = React.useRef(0);
   const dragRef = React.useRef<{
     id: number;
     x: number;
@@ -78,6 +79,17 @@ export function CoverflowCarousel({
     (position: number) =>
       loop ? position : Math.max(0, Math.min(count - 1, position)),
     [count, loop],
+  );
+
+  const syncSelected = React.useCallback(
+    (position: number) => {
+      const index = indexAt(position);
+      if (selectedRef.current === index) return;
+
+      selectedRef.current = index;
+      setSelected(index);
+    },
+    [indexAt],
   );
 
   const paint = React.useCallback(() => {
@@ -111,35 +123,47 @@ export function CoverflowCarousel({
   }, [count, depth, fade, falloff, gap, loop, rotate]);
 
   const settle = React.useCallback(
-    (target: number) => {
+    (target: number, initialVelocity = 0) => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       targetRef.current = target;
-      setSelected(indexAt(target));
 
       if (reduceMotionRef.current) {
         posRef.current = target;
+        syncSelected(target);
         paint();
         rafRef.current = null;
         return;
       }
 
-      const step = () => {
+      let velocity = initialVelocity;
+      let previousTime = performance.now();
+
+      const step = (time: number) => {
+        const deltaTime = Math.min((time - previousTime) / 1000, 0.032);
+        previousTime = time;
         const remaining = target - posRef.current;
-        if (Math.abs(remaining) < 0.0004) {
+
+        velocity += remaining * 85 * deltaTime;
+        velocity *= Math.exp(-17 * deltaTime);
+        posRef.current += velocity * deltaTime;
+
+        syncSelected(posRef.current);
+        paint();
+
+        if (Math.abs(remaining) < 0.0005 && Math.abs(velocity) < 0.005) {
           posRef.current = target;
+          syncSelected(target);
           paint();
           rafRef.current = null;
           return;
         }
 
-        posRef.current += remaining * 0.16;
-        paint();
         rafRef.current = requestAnimationFrame(step);
       };
 
       rafRef.current = requestAnimationFrame(step);
     },
-    [indexAt, paint],
+    [paint, syncSelected],
   );
 
   const goTo = React.useCallback(
@@ -153,8 +177,10 @@ export function CoverflowCarousel({
   );
 
   const nudge = React.useCallback(
-    (by: number) =>
-      settle(clampPosition(Math.round(targetRef.current) + by)),
+    (by: number) => {
+      const target = clampPosition(Math.round(targetRef.current) + by);
+      settle(target, by * 1.15);
+    },
     [clampPosition, settle],
   );
 
@@ -189,11 +215,12 @@ export function CoverflowCarousel({
     const now = performance.now();
     const previous = posRef.current;
     posRef.current = clampPosition(drag.pos - delta / pitch);
-    drag.v = ((posRef.current - previous) / Math.max(now - drag.t, 1)) * 1000;
+    const instantaneousVelocity =
+      ((posRef.current - previous) / Math.max(now - drag.t, 1)) * 1000;
+    drag.v = drag.v * 0.7 + instantaneousVelocity * 0.3;
     drag.t = now;
 
-    const index = indexAt(posRef.current);
-    if (index !== selected) setSelected(index);
+    syncSelected(posRef.current);
     paint();
   };
 
@@ -203,8 +230,14 @@ export function CoverflowCarousel({
 
     dragRef.current = null;
     suppressClickRef.current = drag.moved;
-    const carried = Math.max(-2, Math.min(2, drag.v * 0.18));
-    settle(clampPosition(Math.round(posRef.current + carried)));
+    const elapsedSinceMove = Math.max(performance.now() - drag.t, 0);
+    const releaseVelocity = Math.max(
+      -7,
+      Math.min(7, drag.v * Math.exp(-elapsedSinceMove / 90)),
+    );
+    const carried = Math.max(-2.25, Math.min(2.25, releaseVelocity * 0.22));
+    const target = clampPosition(Math.round(posRef.current + carried));
+    settle(target, releaseVelocity);
   };
 
   useIsoLayoutEffect(() => {
@@ -305,7 +338,10 @@ export function CoverflowCarousel({
                   goTo(index);
                 }}
                 className="absolute left-1/2 top-0 aspect-[1/1.08] overflow-hidden rounded-[1.35rem] border border-white/12 bg-[#efede8] shadow-[0_28px_70px_rgba(0,0,0,0.48)] outline-none ring-white/70 transition-[border-color,box-shadow] duration-300 focus-visible:ring-2"
-                style={{ width: "var(--cf-card)" }}
+                style={{
+                  width: "var(--cf-card)",
+                  willChange: "transform, opacity",
+                }}
               >
                 <Image
                   src={slide.src}
