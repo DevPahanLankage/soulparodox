@@ -45,12 +45,6 @@
   box-shadow: inset 0 -1px rgb(255 255 255 / 0.12);
 }
 
-.backgroundImage {
-  z-index: 0;
-  object-fit: cover;
-  object-position: center center;
-}
-
 .backgroundVideo {
   position: absolute;
   inset: 0;
@@ -61,6 +55,8 @@
   object-position: center center;
   opacity: 0;
   pointer-events: none;
+  transition: opacity 1.15s ease-in-out;
+  will-change: opacity;
 }
 
 .backgroundVideoActive {
@@ -117,7 +113,6 @@
 }
 
 @media (max-width: 639px) {
-  .backgroundImage,
   .backgroundVideo {
     object-position: 61% center;
   }
