@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import {
   CoverflowCarousel,
@@ -37,35 +37,8 @@ type CertificationItem = {
   href?: string;
 };
 
-const heroVideoScenes = [
-  {
-    id: "garment-production",
-    desktop: "/videos/garment-production.mp4",
-    mobile: "/videos/garment-production-mobile.mp4",
-  },
-  {
-    id: "fabric-sampling",
-    desktop: "/videos/fabric-sampling.mp4",
-    mobile: "/videos/fabric-sampling.mp4",
-  },
-  {
-    id: "garment-quality-control",
-    desktop: "/videos/garment-quality-control.mp4",
-    mobile: "/videos/garment-quality-control.mp4",
-  },
-  {
-    id: "fashion-design-meeting",
-    desktop: "/videos/fashion-design-meeting.mp4",
-    mobile: "/videos/fashion-design-meeting.mp4",
-  },
-  {
-    id: "international-business-meeting",
-    desktop: "/videos/international-business-meeting.mp4",
-    mobile: "/videos/international-business-meeting.mp4",
-  },
-] as const;
-
-const heroSceneDurationMs = 3000;
+const heroVideoSource =
+  "/videos/WhatsApp%20Video%202026-09-19%20at%209.26.25%20PM.mp4";
 const flagSources: Record<string, string> = {
   BD: "/images/flags/bangladesh.svg",
   CA: "/images/flags/canada.svg",
@@ -100,32 +73,26 @@ function CountryFlag({
 }
 
 export default function Home() {
-  const [heroVideoIndex, setHeroVideoIndex] = useState(0);
-
   const capabilities = [
     {
       title: "Sourcing & Vendor Management",
       body: "We match each product with the right factory, confirm capacity, negotiate clear terms, and keep production timelines realistic from the start.",
-      image:
-        "/images/strategic-sourcing.png",
+      image: "/images/strategic-sourcing-v2.png",
     },
     {
       title: "Product Development",
       body: "We support fabric sourcing, trims, lab dips, tech packs, samples, fit comments, and approvals before bulk production begins.",
-      image:
-        "/images/product-development-v2.png",
+      image: "/images/product-development-v3.png",
     },
     {
       title: "Quality Assurance & Compliance",
       body: "We follow up through factory checks, inline inspections, pre-shipment reviews, social compliance records, and practical corrective actions.",
-      image:
-        "/images/quality-compliance.png",
+      image: "/images/quality-compliance-v2.png",
     },
     {
       title: "Sustainable Sourcing & Costing",
       body: "We help buyers source certified materials, understand MOQ options, check traceability, and build costing that protects margin and quality.",
-      image:
-        "/images/sustainable-sourcing.png",
+      image: "/images/sustainable-sourcing-v2.png",
     },
   ];
 
@@ -381,16 +348,6 @@ export default function Home() {
   const values = ["Customer First", "Quality", "Collaboration", "Responsibility", "Integrity"];
 
   useEffect(() => {
-    const sceneTimer = window.setTimeout(() => {
-      setHeroVideoIndex((currentIndex) =>
-        (currentIndex + 1) % heroVideoScenes.length,
-      );
-    }, heroSceneDurationMs);
-
-    return () => window.clearTimeout(sceneTimer);
-  }, [heroVideoIndex]);
-
-  useEffect(() => {
     const revealElements = Array.from(
       document.querySelectorAll<HTMLElement>("[data-reveal]"),
     );
@@ -478,30 +435,20 @@ export default function Home() {
               sizes="100vw"
               className={styles.backgroundImage}
             />
-            {heroVideoScenes.map((scene, index) => (
-              <video
-                key={scene.id}
-                className={`${styles.backgroundVideo} ${
-                  index === heroVideoIndex ? styles.backgroundVideoActive : ""
-                }`}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                poster="/images/garment-hero.png"
-                aria-hidden="true"
-                tabIndex={-1}
-                disablePictureInPicture
-              >
-                <source
-                  src={scene.mobile}
-                  type="video/mp4"
-                  media="(max-width: 639px)"
-                />
-                <source src={scene.desktop} type="video/mp4" />
-              </video>
-            ))}
+            <video
+              className={`${styles.backgroundVideo} ${styles.backgroundVideoActive}`}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              poster="/images/garment-hero.png"
+              aria-hidden="true"
+              tabIndex={-1}
+              disablePictureInPicture
+            >
+              <source src={heroVideoSource} type="video/mp4" />
+            </video>
             <div className={styles.content}>
               <h1 className={styles.heroHeadline}>
                 Your trusted apparel sourcing engine in Bangladesh & Sri Lanka with 20+ years of apparel manufacturing experience.
@@ -574,7 +521,7 @@ export default function Home() {
               </div>
               <div className="flex justify-between gap-4 border-b border-black/10 pb-3 text-sm">
                 <span className="label-mono">UK office</span>
-                <span className="text-right text-black/82">London, United Kingdom</span>
+                <span className="text-right text-black/82">United Kingdom</span>
               </div>
               <div className="flex justify-between border-b border-black/10 pb-3 text-sm">
                 <span className="label-mono">Manufacturing countries</span>
@@ -594,7 +541,7 @@ export default function Home() {
               <div data-reveal>
                 <p className="section-kicker">Core capabilities</p>
                 <h2 className="editorial-headline mt-4 max-w-5xl text-[clamp(2.2rem,5.3vw,5.5rem)]">
-                  From first sample to final shipment, we manage the details that protect your product, price, and delivery.
+                  From concept and sampling to final delivery, we manage the details that protect your product, price, and timeline.
                 </h2>
               </div>
             </div>
