@@ -75,9 +75,9 @@ function CountryFlag({
 export default function Home() {
   const capabilities = [
     {
-      title: "Sourcing & Vendor Management",
-      body: "We match each product with the right factory, confirm capacity, negotiate clear terms, and keep production timelines realistic from the start.",
-      image: "/images/strategic-sourcing-v2.png",
+      title: "Inspiration & Concept Development",
+      body: "We turn references, trend direction, sketches, and commercial goals into focused apparel concepts with clear silhouettes, materials, and development priorities.",
+      image: "/images/concept-development.png",
     },
     {
       title: "Product Development",
@@ -85,14 +85,24 @@ export default function Home() {
       image: "/images/product-development-v3.png",
     },
     {
+      title: "Sustainable Sourcing & Costing",
+      body: "We help buyers source certified materials, understand MOQ options, check traceability, and build costing that protects margin and quality.",
+      image: "/images/sustainable-sourcing-v2.png",
+    },
+    {
+      title: "Manufacturing & Production",
+      body: "We coordinate factory allocation, pre-production approvals, production planning, merchandising follow-up, and line-level execution through bulk manufacturing.",
+      image: "/images/manufacturing-production.png",
+    },
+    {
       title: "Quality Assurance & Compliance",
       body: "We follow up through factory checks, inline inspections, pre-shipment reviews, social compliance records, and practical corrective actions.",
       image: "/images/quality-compliance-v2.png",
     },
     {
-      title: "Sustainable Sourcing & Costing",
-      body: "We help buyers source certified materials, understand MOQ options, check traceability, and build costing that protects margin and quality.",
-      image: "/images/sustainable-sourcing-v2.png",
+      title: "Logistics & Reliable Delivery",
+      body: "We coordinate packing, export documentation, freight handover, and shipment milestones so finished goods move reliably from factory to final destination.",
+      image: "/images/logistics-delivery.png",
     },
   ];
 
