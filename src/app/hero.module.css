@@ -89,6 +89,24 @@
   line-height: 0.97;
   letter-spacing: -0.055em;
   text-wrap: balance;
+  opacity: 0;
+  transform: translate3d(0, 30px, 0) scale(0.985);
+  filter: blur(10px);
+  animation: hero-headline-reveal 1.35s cubic-bezier(0.16, 1, 0.3, 1) 1.75s both;
+  will-change: opacity, transform, filter;
+}
+
+@keyframes hero-headline-reveal {
+  55% {
+    opacity: 0.85;
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
 }
 
 @media (max-width: 1023px) {
@@ -149,6 +167,16 @@
     width: 100%;
     font-size: clamp(2.35rem, 10.5vw, 2.75rem);
     line-height: 0.98;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroHeadline {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
+    will-change: auto;
   }
 }
 
