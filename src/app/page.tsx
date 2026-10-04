@@ -1,8 +1,8 @@
-"use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { RevealController } from "@/components/reveal-controller";
+import { SeamlessHeroVideo } from "@/components/seamless-hero-video";
 import {
   CoverflowCarousel,
   type CoverflowSlide,
@@ -34,12 +34,10 @@ type CertificationItem = {
   alt?: string;
   width?: number;
   height?: number;
+  sizes?: string;
   href?: string;
 };
 
-const heroVideoSource =
-  "/videos/WhatsApp%20Video%202026-09-19%20at%209.26.25%20PM.mp4";
-const heroVideoCrossfadeSeconds = 1.15;
 const flagSources: Record<string, string> = {
   BD: "/images/flags/bangladesh.svg",
   CA: "/images/flags/canada.svg",
@@ -73,143 +71,55 @@ function CountryFlag({
   );
 }
 
-function SeamlessHeroVideo() {
-  const primaryVideoRef = useRef<HTMLVideoElement>(null);
-  const secondaryVideoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const primaryVideo = primaryVideoRef.current;
-    const secondaryVideo = secondaryVideoRef.current;
-    if (!primaryVideo || !secondaryVideo) return;
-
-    const videos = [primaryVideo, secondaryVideo];
-    let activeIndex = 0;
-    let crossfading = false;
-    let resetTimer: number | undefined;
-
-    const beginCrossfade = () => {
-      if (crossfading) return;
-
-      const activeVideo = videos[activeIndex];
-      const nextIndex = activeIndex === 0 ? 1 : 0;
-      const nextVideo = videos[nextIndex];
-      const remainingTime = activeVideo.duration - activeVideo.currentTime;
-
-      if (
-        !Number.isFinite(remainingTime) ||
-        remainingTime > heroVideoCrossfadeSeconds ||
-        nextVideo.readyState < HTMLMediaElement.HAVE_CURRENT_DATA
-      ) {
-        return;
-      }
-
-      crossfading = true;
-      nextVideo.currentTime = 0;
-
-      void nextVideo.play().then(() => {
-        nextVideo.classList.add(styles.backgroundVideoActive);
-        activeVideo.classList.remove(styles.backgroundVideoActive);
-
-        resetTimer = window.setTimeout(() => {
-          activeVideo.pause();
-          activeVideo.currentTime = 0;
-          activeIndex = nextIndex;
-          crossfading = false;
-        }, heroVideoCrossfadeSeconds * 1000);
-      }).catch(() => {
-        crossfading = false;
-      });
-    };
-
-    const keepPlaybackContinuous = (event: Event) => {
-      const endedVideo = event.currentTarget as HTMLVideoElement;
-      const endedIndex = videos.indexOf(endedVideo);
-
-      if (endedIndex !== activeIndex || crossfading) return;
-
-      endedVideo.currentTime = 0;
-      void endedVideo.play().catch(() => undefined);
-    };
-
-    videos.forEach((video) => {
-      video.addEventListener("timeupdate", beginCrossfade);
-      video.addEventListener("ended", keepPlaybackContinuous);
-    });
-
-    void primaryVideo.play().catch(() => undefined);
-
-    return () => {
-      if (resetTimer !== undefined) window.clearTimeout(resetTimer);
-
-      videos.forEach((video) => {
-        video.removeEventListener("timeupdate", beginCrossfade);
-        video.removeEventListener("ended", keepPlaybackContinuous);
-      });
-    };
-  }, []);
-
-  return (
-    <>
-      <video
-        ref={primaryVideoRef}
-        className={`${styles.backgroundVideo} ${styles.backgroundVideoActive}`}
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-        tabIndex={-1}
-        disablePictureInPicture
-      >
-        <source src={heroVideoSource} type="video/mp4" />
-      </video>
-      <video
-        ref={secondaryVideoRef}
-        className={styles.backgroundVideo}
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-        tabIndex={-1}
-        disablePictureInPicture
-      >
-        <source src={heroVideoSource} type="video/mp4" />
-      </video>
-    </>
-  );
-}
-
 export default function Home() {
   const capabilities = [
     {
       title: "Inspiration & Concept Development",
       body: "We turn references, trend direction, sketches, and commercial goals into focused apparel concepts with clear silhouettes, materials, and development priorities.",
       image: "/images/concept-development.png",
+      alt: "Apparel designers reviewing garment concepts and materials in a studio",
+      width: 1536,
+      height: 1024,
     },
     {
       title: "Product Development",
       body: "We support fabric sourcing, trims, lab dips, tech packs, samples, fit comments, and approvals before bulk production begins.",
       image: "/images/product-development-v3.png",
+      alt: "Product development team reviewing a garment sample and material swatches",
+      width: 1672,
+      height: 941,
     },
     {
       title: "Sustainable Sourcing & Costing",
       body: "We help brands source certified materials, understand MOQ options, check traceability, and build costing that protects margin and quality.",
       image: "/images/sustainable-sourcing-v2.png",
+      alt: "Apparel sourcing team reviewing fabrics and production information",
+      width: 1536,
+      height: 1024,
     },
     {
       title: "Manufacturing & Production",
       body: "We coordinate factory allocation, pre-production approvals, production planning, merchandising follow-up, and line-level execution through bulk manufacturing.",
       image: "/images/manufacturing-production.png",
+      alt: "Garment production team working on an apparel manufacturing floor",
+      width: 1536,
+      height: 1024,
     },
     {
       title: "Quality Assurance & Compliance",
       body: "We follow up through factory checks, inline inspections, pre-shipment reviews, social compliance records, and practical corrective actions.",
       image: "/images/quality-compliance-v3.png",
+      alt: "Quality assurance specialist inspecting garments during production",
+      width: 1536,
+      height: 1024,
     },
     {
       title: "Logistics & Reliable Delivery",
       body: "We coordinate packing, export documentation, freight handover, and shipment milestones so finished goods move reliably from factory to final destination.",
       image: "/images/logistics-delivery-v2.png",
+      alt: "Logistics team coordinating packed garments for final delivery",
+      width: 1536,
+      height: 1024,
     },
   ];
 
@@ -229,6 +139,7 @@ export default function Home() {
       alt: "Worldwide Responsible Accredited Production logo",
       width: 2160,
       height: 2160,
+      sizes: "72px",
       href: "https://wrapcompliance.org/",
     },
     {
@@ -237,6 +148,7 @@ export default function Home() {
       alt: "amfori BSCI logo",
       width: 1000,
       height: 600,
+      sizes: "96px",
       href: "https://www.amfori.org/amfori-bsci/",
     },
     {
@@ -246,6 +158,7 @@ export default function Home() {
       alt: "RMG Sustainability Council logo",
       width: 270,
       height: 88,
+      sizes: "124px",
       href: "https://rsc-bd.org/",
     },
     {
@@ -255,6 +168,7 @@ export default function Home() {
       alt: "Nirapon logo",
       width: 194,
       height: 89,
+      sizes: "88px",
       href: "https://www.nirapon.org/",
     },
     {
@@ -263,6 +177,7 @@ export default function Home() {
       alt: "European compliance mark",
       width: 480,
       height: 160,
+      sizes: "144px",
       href: "https://europa.eu/youreurope/business/product-rules-compliance/index_en.htm",
     },
     {
@@ -271,6 +186,7 @@ export default function Home() {
       alt: "OEKO-TEX logo",
       width: 400,
       height: 100,
+      sizes: "(max-width: 639px) 34vw, 192px",
       href: "https://www.oeko-tex.com/",
     },
     {
@@ -282,6 +198,7 @@ export default function Home() {
       alt: "Global Organic Textile Standard logo",
       width: 625,
       height: 625,
+      sizes: "44px",
       href: "https://global-standards.org/our-standards/gots",
     },
     {
@@ -291,6 +208,7 @@ export default function Home() {
       alt: "Global Recycled Standard logo",
       width: 866,
       height: 650,
+      sizes: "176px",
       href: "https://textileexchange.org/recycled-claim-global-recycled-standard/",
     },
     {
@@ -302,6 +220,7 @@ export default function Home() {
       alt: "Sedex logo",
       width: 192,
       height: 192,
+      sizes: "36px",
       href: "https://www.sedex.com/",
     },
     {
@@ -310,6 +229,7 @@ export default function Home() {
       alt: "ISO 9001 quality management badge",
       width: 480,
       height: 160,
+      sizes: "144px",
       href: "https://www.iso.org/iso-9001-quality-management.html",
     },
     {
@@ -319,6 +239,7 @@ export default function Home() {
       alt: "Higg Index logo",
       width: 618,
       height: 482,
+      sizes: "162px",
       href: "https://worldly.io/higg-index/",
     },
   ];
@@ -342,16 +263,16 @@ export default function Home() {
 
   const categoryArtwork: Record<string, CategoryArtwork> = {
     "Circular Knit": {
-      image: "/images/categories/circular-knit.png",
-      alt: "White circular knit t-shirt shown as a product sample",
-      fit: "object-contain",
+      image: "/images/categories/circular-knit-streetwear-editorial.webp",
+      alt: "Models wearing graphic circular-knit T-shirts and casual cargo bottoms",
+      fit: "object-cover",
       imagePosition: "object-center",
     },
     "Flat Knit": {
-      image: "/images/categories/flat-knit.png",
-      alt: "Flat knit sweater shown as a product sample",
-      fit: "object-contain",
-      imagePosition: "object-center",
+      image: "/images/categories/flat-knit-editorial.webp",
+      alt: "Model wearing layered neutral flat-knit cardigan and ribbed knitwear",
+      fit: "object-cover",
+      imagePosition: "object-top",
     },
     "Lightweight Woven": {
       image: "/images/categories/lightweight-woven.png",
@@ -360,21 +281,21 @@ export default function Home() {
       imagePosition: "object-center",
     },
     Denim: {
-      image: "/images/categories/denim-jeans-v2.png",
-      alt: "Mom-fit denim jeans shown as a product sample",
-      fit: "object-contain",
+      image: "/images/categories/denim-editorial.webp",
+      alt: "Models wearing coordinated denim jackets, tops, and jeans",
+      fit: "object-cover",
       imagePosition: "object-center",
     },
     Pants: {
-      image: "/images/categories/pants.png",
-      alt: "Technical pants shown as a product sample",
-      fit: "object-contain",
+      image: "/images/categories/pants-tailoring-editorial.webp",
+      alt: "Models wearing tailored trousers and coordinated formal apparel",
+      fit: "object-cover",
       imagePosition: "object-center",
     },
     Activewear: {
-      image: "/images/categories/activewear.png",
-      alt: "Activewear top shown as a product sample",
-      fit: "object-contain",
+      image: "/images/categories/activewear-editorial.webp",
+      alt: "Models wearing performance tops, leggings, shorts, and light active layers",
+      fit: "object-cover",
       imagePosition: "object-center",
     },
     Outerwear: {
@@ -384,9 +305,9 @@ export default function Home() {
       imagePosition: "object-center",
     },
     Skiwear: {
-      image: "/images/categories/skiwear.png",
-      alt: "Ski jacket shown as a product sample",
-      fit: "object-contain",
+      image: "/images/categories/skiwear-editorial.webp",
+      alt: "Models wearing insulated ski jackets and cold-weather apparel in the mountains",
+      fit: "object-cover",
       imagePosition: "object-center",
     },
     Leather: {
@@ -396,9 +317,9 @@ export default function Home() {
       imagePosition: "object-center",
     },
     "Indoor Jackets": {
-      image: "/images/categories/indoor-jackets-denim.png",
-      alt: "Denim jacket shown as a product sample",
-      fit: "object-contain",
+      image: "/images/categories/indoor-jackets-hoodies-editorial.webp",
+      alt: "Friends wearing casual hoodies and relaxed indoor layers",
+      fit: "object-cover",
       imagePosition: "object-center",
     },
     Chinos: {
@@ -408,9 +329,9 @@ export default function Home() {
       imagePosition: "object-center",
     },
     Swimwear: {
-      image: "/images/categories/swimwear.png",
-      alt: "Swimwear pieces shown as product samples",
-      fit: "object-contain",
+      image: "/images/categories/swimwear-editorial.webp",
+      alt: "Models wearing colorful swimwear beside a pool",
+      fit: "object-cover",
       imagePosition: "object-center",
     },
     Seamless: {
@@ -420,9 +341,9 @@ export default function Home() {
       imagePosition: "object-center",
     },
     Headwear: {
-      image: "/images/categories/headwear.png",
-      alt: "Caps shown as product samples",
-      fit: "object-contain",
+      image: "/images/categories/headwear-editorial.webp",
+      alt: "Model presenting embroidered fashion caps in a lifestyle setting",
+      fit: "object-cover",
       imagePosition: "object-center",
     },
   };
@@ -464,36 +385,9 @@ export default function Home() {
 
   const values = ["Customer First", "Quality", "Collaboration", "Responsibility", "Integrity"];
 
-  useEffect(() => {
-    const revealElements = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-reveal]"),
-    );
-
-    revealElements.forEach((element) => {
-      element.classList.add("reveal");
-      if (element.dataset.revealDelay) {
-        element.style.transitionDelay = `${element.dataset.revealDelay}ms`;
-      }
-    });
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
-          }
-        });
-      },
-      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
-    );
-
-    revealElements.forEach((element) => observer.observe(element));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div className="bg-[var(--background)] text-[var(--foreground)]">
+      <RevealController />
       <main>
         <div className={styles.viewport}>
           <header className={styles.navbar}>
@@ -650,9 +544,13 @@ export default function Home() {
                   data-reveal
                 >
                   <div className={`media-mask ${index % 2 === 0 ? "" : "lg:order-2"}`}>
-                    <img
+                    <Image
                       src={item.image}
-                      alt={item.title}
+                      alt={item.alt}
+                      width={item.width}
+                      height={item.height}
+                      sizes="(max-width: 1023px) calc(100vw - 3rem), 55vw"
+                      loading="lazy"
                       className={`h-[42vh] min-h-[260px] w-full object-cover ${index % 2 === 0 ? "rounded-tr-[4.2rem]" : "rounded-bl-[4.2rem]"}`}
                     />
                   </div>
@@ -741,6 +639,7 @@ export default function Home() {
                               alt={certification.alt ?? certification.name}
                               width={certification.width ?? 1000}
                               height={certification.height ?? 600}
+                              sizes={certification.sizes}
                               className={certification.logoClassName ?? "max-h-12 max-w-full w-auto object-contain"}
                             />
                             {certification.logoLabel ? (
@@ -781,7 +680,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="relative overflow-hidden bg-[#111111] px-6 py-22 text-[var(--ink-invert)] sm:px-10 lg:px-14 lg:py-30">
+      </main>
+
+        <footer id="contact" className="relative overflow-hidden bg-[#111111] px-6 py-22 text-[var(--ink-invert)] sm:px-10 lg:px-14 lg:py-30">
           <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.02),transparent_40%,rgba(255,255,255,0.06))]" />
           <div className="relative mx-auto grid max-w-[1600px] gap-10 lg:grid-cols-[1.2fr_0.8fr]">
             <div data-reveal>
@@ -805,7 +706,7 @@ export default function Home() {
                   text-[0.7rem] font-medium uppercase
                   tracking-[0.22em]
                   text-[#f5f0e8]
-                  transition-all duration-300
+                  transition-[border-color,background-color,color] duration-300
                   hover:border-[#f5f0e8]
                   hover:bg-[#f5f0e8]
                   hover:text-[#111111]
@@ -886,9 +787,12 @@ export default function Home() {
           ))}
         </p>
 
-        <p className="mt-4 text-[0.75rem] tracking-[0.04em] text-white/38 tabular-nums">
+        <a
+          href={`tel:${office.phone.replace(/\s/g, "")}`}
+          className="mt-4 text-[0.75rem] tracking-[0.04em] text-white/38 tabular-nums transition-colors hover:text-white/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/70"
+        >
           {office.phone}
-        </p>
+        </a>
       </div>
     );
   })}
@@ -898,14 +802,16 @@ export default function Home() {
             <span className="text-[0.62rem] uppercase tracking-[0.28em] text-white/35">
               General enquiries
             </span>
-            <span className="text-[0.82rem] tracking-[0.02em] text-white/70">
+            <a
+              href="mailto:info@soulparodox.com"
+              className="text-[0.82rem] tracking-[0.02em] text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/70"
+            >
               info@soulparodox.com
-            </span>
+            </a>
           </div>
 
 
-        </section>       
-      </main>
+        </footer>
     </div>
   );
 }

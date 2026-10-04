@@ -12,6 +12,23 @@ export const metadata: Metadata = {
   title: "Soulparodox | Apparel Sourcing Partner",
   description:
     "Soulparodox is a Toronto-headquartered apparel sourcing partner with offices in Toronto, London, Dhaka, and Colombo.",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Soulparodox",
+    title: "Soulparodox | Apparel Sourcing Partner",
+    description:
+      "Soulparodox is a Toronto-headquartered apparel sourcing partner with offices in Toronto, London, Dhaka, and Colombo.",
+  },
+  twitter: {
+    card: "summary",
+    title: "Soulparodox | Apparel Sourcing Partner",
+    description:
+      "Soulparodox is a Toronto-headquartered apparel sourcing partner with offices in Toronto, London, Dhaka, and Colombo.",
+  },
 };
 
 export default function RootLayout({

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -15,7 +15,17 @@ type ShowroomLightProps = {
 };
 
 export function ShowroomLight({ className }: ShowroomLightProps) {
-  const reduceMotion = useReducedMotion();
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setReduceMotion(query.matches);
+
+    updatePreference();
+    query.addEventListener("change", updatePreference);
+    return () => query.removeEventListener("change", updatePreference);
+  }, []);
+
   const viewport = { once: true, amount: 0.6 };
   const transitionFor = (duration: number, delay: number) => ({
     duration: reduceMotion ? 0 : duration,
@@ -102,7 +112,7 @@ export function LampContainer({ children, className }: LampContainerProps) {
   return (
     <section
       className={cn(
-        "relative isolate overflow-hidden bg-[#09090b] text-[#f5f0e8]",
+        "relative isolate overflow-hidden bg-[#09090b] text-[#f5f0e8] [contain:paint]",
         className,
       )}
     >

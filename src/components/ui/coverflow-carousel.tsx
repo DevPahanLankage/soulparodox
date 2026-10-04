@@ -74,6 +74,7 @@ export function CoverflowCarousel({
   } | null>(null);
 
   const [selected, setSelected] = React.useState(0);
+  const [announced, setAnnounced] = React.useState(0);
 
   const indexAt = React.useCallback(
     (position: number) => ((Math.round(position) % count) + count) % count,
@@ -122,10 +123,21 @@ export function CoverflowCarousel({
         `translateX(calc(-50% + ${offset * pitch}px)) ` +
         `translateZ(${-depth * width * ramp}px) rotateY(${-tilt}deg)`;
       card.style.opacity = String(Math.max(0, 1 - fade * distance) * edge);
-      card.style.zIndex = String(100 - Math.round(distance));
-      card.style.pointerEvents = distance < 2.6 ? "auto" : "none";
+      const zIndex = String(100 - Math.round(distance));
+      const pointerEvents = distance < 2.6 ? "auto" : "none";
+      if (card.style.zIndex !== zIndex) card.style.zIndex = zIndex;
+      if (card.style.pointerEvents !== pointerEvents) {
+        card.style.pointerEvents = pointerEvents;
+      }
     });
   }, [count, depth, fade, falloff, gap, loop, rotate]);
+
+  const setCardsAnimating = React.useCallback((isAnimating: boolean) => {
+    const willChange = isAnimating ? "transform, opacity" : "auto";
+    cardRefs.current.forEach((card) => {
+      if (card) card.style.willChange = willChange;
+    });
+  }, []);
 
   const settle = React.useCallback(
     (target: number, initialVelocity?: number) => {
@@ -137,6 +149,8 @@ export function CoverflowCarousel({
         velocityRef.current = 0;
         syncSelected(target);
         paint();
+        setAnnounced(indexAt(target));
+        setCardsAnimating(false);
         rafRef.current = null;
         return;
       }
@@ -150,6 +164,8 @@ export function CoverflowCarousel({
       }
 
       if (rafRef.current !== null) return;
+
+      setCardsAnimating(true);
 
       let previousTime = performance.now();
 
@@ -180,6 +196,8 @@ export function CoverflowCarousel({
           velocityRef.current = 0;
           syncSelected(targetRef.current);
           paint();
+          setAnnounced(indexAt(targetRef.current));
+          setCardsAnimating(false);
           rafRef.current = null;
           return;
         }
@@ -189,12 +207,8 @@ export function CoverflowCarousel({
 
       rafRef.current = requestAnimationFrame(step);
     },
-    [paint, syncSelected],
+    [indexAt, paint, setCardsAnimating, syncSelected],
   );
-
-  // request callbacks
-  // 21st dev
-  // spotlight animation
 
   const goTo = React.useCallback(
     (index: number) => {
@@ -220,6 +234,7 @@ export function CoverflowCarousel({
       rafRef.current = null;
     }
     velocityRef.current = 0;
+    setCardsAnimating(true);
 
     event.currentTarget.setPointerCapture(event.pointerId);
     targetRef.current = posRef.current;
@@ -261,6 +276,11 @@ export function CoverflowCarousel({
 
     dragRef.current = null;
     suppressClickRef.current = drag.moved;
+    if (drag.moved) {
+      requestAnimationFrame(() => {
+        suppressClickRef.current = false;
+      });
+    }
     const elapsedSinceMove = Math.max(performance.now() - drag.t, 0);
     const releaseVelocity = Math.max(
       -maximumVelocity,
@@ -356,8 +376,6 @@ export function CoverflowCarousel({
                   cardRefs.current[index] = node;
                 }}
                 type="button"
-                role="group"
-                aria-roledescription="slide"
                 aria-label={`${slide.title}, slide ${index + 1} of ${count}`}
                 aria-current={index === selected ? "true" : undefined}
                 tabIndex={index === selected ? 0 : -1}
@@ -371,7 +389,6 @@ export function CoverflowCarousel({
                 className="absolute left-1/2 top-0 aspect-[1/1.08] overflow-hidden rounded-[1.35rem] border border-white/12 bg-[#efede8] shadow-[0_28px_70px_rgba(0,0,0,0.48)] outline-none ring-white/70 transition-[border-color,box-shadow] duration-300 focus-visible:ring-2"
                 style={{
                   width: "var(--cf-card)",
-                  willChange: "transform, opacity",
                 }}
               >
                 <Image
@@ -415,34 +432,40 @@ export function CoverflowCarousel({
 
       <div
         className="mx-auto mt-1 w-full max-w-3xl border-t border-white/14 px-1 pt-5 sm:mt-3 sm:px-6 sm:pt-7"
-        aria-live="polite"
-        aria-atomic="true"
       >
-        <div className="grid gap-5 text-center sm:grid-cols-[1fr_auto] sm:items-end sm:text-left">
-          <div>
-            <p className="text-[0.62rem] font-medium uppercase tracking-[0.28em] text-white/38">
+        <div className="grid gap-5 text-center sm:grid-cols-[1fr_auto] sm:grid-rows-[auto_auto_auto] sm:items-baseline sm:gap-y-0 sm:text-left">
+          <div className="sm:contents">
+            <p className="text-[0.62rem] font-medium uppercase tracking-[0.28em] text-white/38 sm:col-start-1 sm:row-start-1">
               {String(selected + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
             </p>
-            <h3 className="mt-2 text-[clamp(1.8rem,3vw,3rem)] font-light leading-none tracking-[-0.045em] text-[#f5f0e8]">
+            <h3 className="mt-2 text-[clamp(1.8rem,3vw,3rem)] font-light leading-none tracking-[-0.045em] text-[#f5f0e8] sm:col-start-1 sm:row-start-2">
               {active.title}
             </h3>
           </div>
 
-          <div className="sm:text-right">
-            <p className="text-[0.62rem] font-medium uppercase tracking-[0.24em] text-white/40">
+          <div className="sm:contents sm:text-right">
+            <p className="text-[0.62rem] font-medium uppercase tracking-[0.24em] text-white/40 sm:col-start-2 sm:row-start-1">
               {active.capacity.label}
             </p>
-            <p className="mt-1 text-[clamp(1.75rem,3vw,2.75rem)] font-light leading-none tracking-[-0.04em] tabular-nums text-white">
+            <p className="mt-1 text-[clamp(1.75rem,3vw,2.75rem)] font-light leading-none tracking-[-0.04em] tabular-nums text-white sm:col-start-2 sm:row-start-2">
               {active.capacity.value}
             </p>
-            <p className="mt-1 text-[0.62rem] uppercase tracking-[0.22em] text-white/38">
+            <p className="mt-1 text-[0.62rem] uppercase tracking-[0.22em] text-white/38 sm:col-start-2 sm:row-start-3">
               {active.capacity.suffix}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="mt-7 flex items-center justify-center gap-1.5" aria-label="Choose a product category">
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {`${slides[announced].title}, slide ${announced + 1} of ${count}`}
+      </p>
+
+      <div
+        className="mx-auto mt-2 flex min-h-11 w-full max-w-[21rem] items-center justify-center sm:mt-4"
+        role="group"
+        aria-label="Choose a product category"
+      >
         {slides.map((slide, index) => (
           <button
             key={slide.title}
@@ -450,11 +473,16 @@ export function CoverflowCarousel({
             aria-label={`Show ${slide.title}`}
             aria-current={index === selected ? "true" : undefined}
             onClick={() => goTo(index)}
-            className={cn(
-              "h-1 rounded-full bg-white transition-[width,opacity] duration-300",
-              index === selected ? "w-6 opacity-90" : "w-1.5 opacity-25 hover:opacity-60",
-            )}
-          />
+            className="group flex h-11 min-w-5 flex-1 items-center justify-center rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+          >
+            <span
+              aria-hidden="true"
+              className={cn(
+                "h-1 rounded-full bg-white transition-[width,opacity] duration-300",
+                index === selected ? "w-6 opacity-90" : "w-1.5 opacity-25 group-hover:opacity-60",
+              )}
+            />
+          </button>
         ))}
       </div>
 

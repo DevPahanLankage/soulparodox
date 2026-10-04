@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import DottedMap from "dotted-map";
 import Image from "next/image";
 
 interface MapProps {
@@ -14,15 +13,16 @@ interface MapProps {
 }
 
 export function WorldMap({ dots = [], lineColor = "#023668" }: MapProps) {
-  const svgRef = useRef<SVGSVGElement>(null);
-  const map = new DottedMap({ height: 100, grid: "diagonal" });
+  const [reduceMotion, setReduceMotion] = useState(false);
 
-  const svgMap = map.getSVG({
-    radius: 0.25,
-    color: "#3da8ff",
-    shape: "circle",
-    backgroundColor: "transparent",
-  });
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setReduceMotion(query.matches);
+
+    updatePreference();
+    query.addEventListener("change", updatePreference);
+    return () => query.removeEventListener("change", updatePreference);
+  }, []);
 
   const projectPoint = (lat: number, lng: number) => {
     const x = (lng + 180) * (800 / 360);
@@ -42,15 +42,15 @@ export function WorldMap({ dots = [], lineColor = "#023668" }: MapProps) {
   return (
     <div className="relative aspect-[2/1] w-full overflow-hidden bg-transparent font-sans">
       <Image
-        src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
+        src="/images/world-map-dots.svg"
         className="h-full w-full select-none object-contain [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none"
-        alt="world map"
+        alt="World map showing Soulparodox locations in Canada, the United Kingdom, Bangladesh, and Sri Lanka"
         height="495"
         width="1056"
+        sizes="100vw"
         draggable={false}
       />
       <svg
-        ref={svgRef}
         viewBox="0 0 800 400"
         className="pointer-events-none absolute inset-0 h-full w-full select-none"
       >
@@ -66,7 +66,7 @@ export function WorldMap({ dots = [], lineColor = "#023668" }: MapProps) {
                 strokeWidth="1"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 1, delay: 0.5 * i, ease: "easeOut" }}
+                transition={{ duration: reduceMotion ? 0 : 1, delay: reduceMotion ? 0 : 0.5 * i, ease: "easeOut" }}
               />
             </g>
           );
@@ -88,10 +88,12 @@ export function WorldMap({ dots = [], lineColor = "#023668" }: MapProps) {
             <g key={`points-group-${i}`}>
               <g key={`start-${i}`}>
                 <circle cx={startPt.x} cy={startPt.y} r="2" fill={lineColor} />
-                <circle cx={startPt.x} cy={startPt.y} r="2" fill={lineColor} opacity="0.5">
-                  <animate attributeName="r" from="2" to="8" dur="1.5s" begin="0s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" begin="0s" repeatCount="indefinite" />
-                </circle>
+                {!reduceMotion ? (
+                  <circle cx={startPt.x} cy={startPt.y} r="2" fill={lineColor} opacity="0.5">
+                    <animate attributeName="r" from="2" to="8" dur="1.5s" begin="0s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" begin="0s" repeatCount="indefinite" />
+                  </circle>
+                ) : null}
                 {dot.start.label ? (
                   <text
                     x={startPt.x}
@@ -108,10 +110,12 @@ export function WorldMap({ dots = [], lineColor = "#023668" }: MapProps) {
               </g>
               <g key={`end-${i}`}>
                 <circle cx={endPt.x} cy={endPt.y} r="2" fill={lineColor} />
-                <circle cx={endPt.x} cy={endPt.y} r="2" fill={lineColor} opacity="0.5">
-                  <animate attributeName="r" from="2" to="8" dur="1.5s" begin="0s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" begin="0s" repeatCount="indefinite" />
-                </circle>
+                {!reduceMotion ? (
+                  <circle cx={endPt.x} cy={endPt.y} r="2" fill={lineColor} opacity="0.5">
+                    <animate attributeName="r" from="2" to="8" dur="1.5s" begin="0s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" begin="0s" repeatCount="indefinite" />
+                  </circle>
+                ) : null}
                 {dot.end.label ? (
                   <text
                     x={endPt.x}
