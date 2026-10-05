@@ -1,0 +1,67 @@
+.section {
+  --category-card-size: clamp(8.75rem, min(68vw, calc(41dvh - 5.5rem)), 24.375rem);
+  --showroom-stage-height: clamp(2rem, calc(13dvh - 2.5rem), 5.5rem);
+  --showroom-stage-height-sm: clamp(3rem, 9dvh, 6.5rem);
+  --showroom-core-height: clamp(3.75rem, 11dvh, 7.5rem);
+  --showroom-beam-height: clamp(10rem, 34dvh, 27rem);
+  --showroom-haze-height: clamp(12rem, 39dvh, 31rem);
+  --showroom-pool-top: clamp(3.25rem, 9dvh, 8rem);
+  --showroom-pool-height: clamp(7rem, 19dvh, 15rem);
+
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: grid;
+  align-items: center;
+  padding: clamp(0.5rem, calc(4dvh - 1rem), 2rem) clamp(1rem, 3vw, 3rem);
+}
+
+.inner {
+  min-width: 0;
+}
+
+.heading {
+  margin-top: clamp(0.4rem, calc(2dvh - 0.25rem), 1rem);
+}
+
+.light {
+  margin-top: clamp(0.4rem, calc(3dvh - 0.75rem), 2.5rem);
+}
+
+.carousel {
+  min-width: 0;
+  margin-top: calc(clamp(0.25rem, 1.5dvh, 1rem) * -1);
+}
+
+.section :global(.coverflow-frame) {
+  padding-block: clamp(0.25rem, calc(2dvh - 0.5rem), 2.5rem);
+}
+
+.section :global(.coverflow-details) {
+  margin-top: clamp(0rem, 0.6dvh, 0.75rem);
+  padding-top: clamp(0.625rem, calc(2dvh - 0.125rem), 1.75rem);
+}
+
+.section :global(.coverflow-details-grid) {
+  gap: clamp(0.4rem, calc(2.5dvh - 0.5rem), 1.25rem);
+}
+
+.section :global(.coverflow-pagination) {
+  margin-top: clamp(0rem, 0.8dvh, 1rem);
+}
+
+.section :global(.coverflow-swipe-hint) {
+  margin-top: clamp(0rem, calc(2dvh - 0.625rem), 1rem);
+}
+
+@media (min-width: 640px) {
+  .section {
+    --category-card-size: clamp(10.5rem, min(37.5vw, calc(38dvh - 3.5rem)), 24.375rem);
+    padding-inline: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .section :global(.coverflow-details-grid) {
+    column-gap: 1.25rem;
+    row-gap: 0;
+  }
+}
+

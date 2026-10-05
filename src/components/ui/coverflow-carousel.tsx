@@ -356,7 +356,7 @@ export function CoverflowCarousel({
               nudge(1);
             }
           }}
-          className="cursor-grab overflow-hidden py-8 outline-none ring-white/60 focus-visible:ring-1 active:cursor-grabbing sm:py-10"
+          className="coverflow-frame cursor-grab overflow-hidden py-8 outline-none ring-white/60 focus-visible:ring-1 active:cursor-grabbing sm:py-10"
           style={{
             perspective: `calc(var(--cf-card) * ${perspective})`,
             touchAction: "pan-y",
@@ -431,9 +431,9 @@ export function CoverflowCarousel({
       </div>
 
       <div
-        className="mx-auto mt-1 w-full max-w-3xl border-t border-white/14 px-1 pt-5 sm:mt-3 sm:px-6 sm:pt-7"
+        className="coverflow-details mx-auto mt-1 w-full max-w-3xl border-t border-white/14 px-1 pt-5 sm:mt-3 sm:px-6 sm:pt-7"
       >
-        <div className="grid gap-5 text-center sm:grid-cols-[1fr_auto] sm:grid-rows-[auto_auto_auto] sm:items-baseline sm:gap-y-0 sm:text-left">
+        <div className="coverflow-details-grid grid gap-5 text-center sm:grid-cols-[1fr_auto] sm:grid-rows-[auto_auto_auto] sm:items-baseline sm:gap-y-0 sm:text-left">
           <div className="sm:contents">
             <p className="text-[0.62rem] font-medium uppercase tracking-[0.28em] text-white/38 sm:col-start-1 sm:row-start-1">
               {String(selected + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
@@ -462,7 +462,7 @@ export function CoverflowCarousel({
       </p>
 
       <div
-        className="mx-auto mt-2 flex min-h-11 w-full max-w-[21rem] items-center justify-center sm:mt-4"
+        className="coverflow-pagination mx-auto mt-2 flex min-h-11 w-full max-w-[21rem] items-center justify-center sm:mt-4"
         role="group"
         aria-label="Choose a product category"
       >
@@ -486,7 +486,7 @@ export function CoverflowCarousel({
         ))}
       </div>
 
-      <p className="mt-4 text-center text-[0.58rem] uppercase tracking-[0.22em] text-white/28 sm:hidden">
+      <p className="coverflow-swipe-hint mt-4 text-center text-[0.58rem] uppercase tracking-[0.22em] text-white/28 sm:hidden">
         Swipe to explore
       </p>
     </div>

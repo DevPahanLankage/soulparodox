@@ -10,6 +10,7 @@ import {
 import { LampContainer, ShowroomLight } from "@/components/ui/lamp";
 import { WorldMap } from "@/components/ui/world-map";
 import styles from "./hero.module.css";
+import categoryStyles from "./product-categories.module.css";
 
 type CapacityItem = {
   id: string;
@@ -447,29 +448,32 @@ export default function Home() {
           </section>
         </div>
 
-        <LampContainer className="px-4 py-18 sm:px-8 sm:py-22 lg:px-12 lg:py-26">
-          <div className="mx-auto w-full max-w-[1600px]">
+        <LampContainer className={categoryStyles.section}>
+          <div className={`${categoryStyles.inner} mx-auto w-full max-w-[1600px]`}>
             <div className="mx-auto max-w-4xl text-center" data-reveal>
               <p className="text-[0.64rem] font-medium uppercase tracking-[0.32em] text-white/42">
                 Product categories
               </p>
-              <h2 className="mt-4 text-[clamp(2.1rem,4.8vw,4.9rem)] font-light leading-[0.96] tracking-[-0.052em] text-[#f5f0e8]">
+              <h2 className={`${categoryStyles.heading} section-display text-[#f5f0e8]`}>
                 Apparel built across a complete sourcing network.
               </h2>
-              <ShowroomLight className="mt-[clamp(1.5rem,3vw,2.5rem)]" />
+              <ShowroomLight className={categoryStyles.light} />
             </div>
 
-            <div className="-mt-2 sm:-mt-4" data-reveal data-reveal-delay="100">
-              <CoverflowCarousel slides={productCategorySlides} />
+            <div className={categoryStyles.carousel} data-reveal data-reveal-delay="100">
+              <CoverflowCarousel
+                slides={productCategorySlides}
+                cardWidth="var(--category-card-size)"
+              />
             </div>
           </div>
         </LampContainer>
 
         <section className="mx-auto max-w-[1600px] px-6 py-22 sm:px-10 lg:px-14 lg:py-30">
-          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="grid gap-12 lg:grid-cols-2">
             <div className="space-y-8" data-reveal>
               <p className="section-kicker">Why Soulparodox</p>
-              <p className="text-[clamp(2.1rem,4.2vw,4.7rem)] font-light leading-[0.98] tracking-[-0.046em]">
+              <p className="section-display">
                 Practical support for brands that need factory-ready product development and reliable production follow-up.
               </p>
             </div>
@@ -495,7 +499,7 @@ export default function Home() {
         <section className="mx-auto grid max-w-[1600px] gap-10 px-6 py-20 sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:px-14 lg:py-28">
           <div data-reveal>
             <p className="section-kicker">Apparel sourcing support</p>
-            <h2 className="editorial-headline mt-4 max-w-5xl text-[clamp(2.3rem,6.4vw,6.2rem)] text-[var(--foreground)]">
+            <h2 className="section-display mt-4 max-w-5xl text-[var(--foreground)]">
               Built on decades of hands-on apparel manufacturing experience.
             </h2>
           </div>
@@ -530,7 +534,7 @@ export default function Home() {
             <div className="mb-14 flex items-end justify-between gap-10">
               <div data-reveal>
                 <p className="section-kicker">Core capabilities</p>
-                <h2 className="editorial-headline mt-4 max-w-5xl text-[clamp(2.2rem,5.3vw,5.5rem)]">
+                <h2 className="section-display mt-4 max-w-5xl">
                   From inspiration to final delivery, we manage the details that protect your product, price, and timeline.
                 </h2>
               </div>
@@ -571,7 +575,7 @@ export default function Home() {
           <div className="mx-auto max-w-[1600px]">
             <div data-reveal>
               <p className="section-kicker">Global Presence</p>
-              <h2 className="mt-4 max-w-4xl text-[clamp(2.1rem,4.5vw,4.6rem)] font-light leading-[1] tracking-[-0.045em]">
+              <h2 className="section-display mt-4 max-w-4xl">
                 A practical network for sourcing across Canada, the UK, Bangladesh, and Sri Lanka.
               </h2>
             </div>
@@ -606,7 +610,7 @@ export default function Home() {
           <div className="relative mx-auto grid max-w-[1600px] gap-14 lg:grid-cols-[1fr_1fr]">
             <div data-reveal>
               <p className="text-[0.68rem] tracking-[0.3em] uppercase font-medium text-white">Certifications & Compliance</p>
-              <h2 className="mt-4 max-w-4xl text-[clamp(2.1rem,4.5vw,4.6rem)] font-light leading-[1] tracking-[-0.045em] text-[#f5f0e8]">
+              <h2 className="section-display mt-4 max-w-4xl text-[#f5f0e8]">
                 Quality, sustainability, social responsibility, and compliance are checked throughout the sourcing process.
               </h2>
             </div>
@@ -687,7 +691,7 @@ export default function Home() {
           <div className="relative mx-auto grid max-w-[1600px] gap-10 lg:grid-cols-[1.2fr_0.8fr]">
             <div data-reveal>
               <p className="text-[0.68rem] tracking-[0.3em] uppercase font-medium text-white">Contact</p>
-              <h2 className="mt-5 mb-7 max-w-5xl text-[clamp(2.4rem,6.4vw,6.8rem)] font-light leading-[0.9] tracking-[-0.055em]">
+              <h2 className="section-display mt-5 mb-7 max-w-5xl">
                 Ready to support your next apparel sourcing brief.
               </h2>
             </div>

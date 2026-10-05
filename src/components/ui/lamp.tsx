@@ -37,7 +37,7 @@ export function ShowroomLight({ className }: ShowroomLightProps) {
     <div
       aria-hidden="true"
       className={cn(
-        "pointer-events-none relative mx-auto h-[clamp(3.75rem,14vw,5.5rem)] w-full overflow-visible sm:h-[clamp(4.5rem,8vw,6.5rem)]",
+        "pointer-events-none relative mx-auto h-[var(--showroom-stage-height,clamp(3.75rem,14vw,5.5rem))] w-full overflow-visible sm:h-[var(--showroom-stage-height-sm,clamp(4.5rem,8vw,6.5rem))]",
         className,
       )}
     >
@@ -49,7 +49,7 @@ export function ShowroomLight({ className }: ShowroomLightProps) {
         className="absolute left-1/2 top-0 z-30 h-px w-[80%] max-w-[43rem] origin-center -translate-x-1/2 bg-[#fffdf8] shadow-[0_0_5px_1px_rgba(255,253,248,0.38),0_0_14px_2px_rgba(255,255,255,0.1)] sm:w-[84%]"
       />
 
-      <div className="absolute left-1/2 top-0 z-20 h-[clamp(5rem,13vw,7.5rem)] w-[min(88vw,50rem)] -translate-x-1/2">
+      <div className="absolute left-1/2 top-0 z-20 h-[var(--showroom-core-height,clamp(5rem,13vw,7.5rem))] w-[min(88vw,50rem)] -translate-x-1/2">
         <motion.div
           initial={{ opacity: 0, scaleX: 0.62 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
@@ -59,7 +59,7 @@ export function ShowroomLight({ className }: ShowroomLightProps) {
         />
       </div>
 
-      <div className="absolute left-1/2 top-[clamp(0.15rem,0.5vw,0.45rem)] z-10 h-[clamp(16rem,38vw,27rem)] w-[min(116vw,84rem)] -translate-x-1/2">
+      <div className="absolute left-1/2 top-[clamp(0.15rem,0.5vw,0.45rem)] z-10 h-[var(--showroom-beam-height,clamp(16rem,38vw,27rem))] w-[min(116vw,84rem)] -translate-x-1/2">
         <motion.div
           initial={{ opacity: 0, scaleX: 0.54, scaleY: 0.76 }}
           whileInView={{ opacity: 1, scaleX: 1, scaleY: 1 }}
@@ -77,7 +77,7 @@ export function ShowroomLight({ className }: ShowroomLightProps) {
         />
       </div>
 
-      <div className="absolute left-1/2 top-[clamp(0.35rem,1vw,0.75rem)] h-[clamp(19rem,45vw,31rem)] w-[min(140vw,108rem)] -translate-x-1/2">
+      <div className="absolute left-1/2 top-[clamp(0.35rem,1vw,0.75rem)] h-[var(--showroom-haze-height,clamp(19rem,45vw,31rem))] w-[min(140vw,108rem)] -translate-x-1/2">
         <motion.div
           initial={{ opacity: 0, scaleX: 0.48, scaleY: 0.72 }}
           whileInView={{ opacity: 1, scaleX: 1, scaleY: 1 }}
@@ -95,7 +95,7 @@ export function ShowroomLight({ className }: ShowroomLightProps) {
         />
       </div>
 
-      <div className="absolute left-1/2 top-[clamp(5.5rem,12vw,8rem)] h-[clamp(10rem,21vw,15rem)] w-[min(118vw,88rem)] -translate-x-1/2">
+      <div className="absolute left-1/2 top-[var(--showroom-pool-top,clamp(5.5rem,12vw,8rem))] h-[var(--showroom-pool-height,clamp(10rem,21vw,15rem))] w-[min(118vw,88rem)] -translate-x-1/2">
         <motion.div
           initial={{ opacity: 0, scaleX: 0.64 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
