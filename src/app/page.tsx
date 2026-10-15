@@ -665,7 +665,7 @@ export default function Home() {
               </div>
 
               <div className="mt-12">
-                <p className="label-mono text-white/35">Values</p>
+                <p className="label-mono !text-white">Values</p>
                 <div className="mt-4 hidden lg:block">
                   {values.map((value) => (
                     <div key={value} className="flex items-center justify-between border-t border-white/10 py-2.5 last:border-b">
@@ -802,16 +802,26 @@ export default function Home() {
   })}
 </div>
 
-          <div className="flex items-center justify-between pt-8" data-reveal data-reveal-delay="160">
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-8" data-reveal data-reveal-delay="160">
             <span className="text-[0.62rem] uppercase tracking-[0.28em] text-white/35">
               General enquiries
             </span>
-            <a
-              href="mailto:info@soulparodox.com"
-              className="text-[0.82rem] tracking-[0.02em] text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/70"
-            >
-              info@soulparodox.com
-            </a>
+            <div className="flex flex-wrap items-center justify-end gap-x-5 gap-y-3">
+              <a
+                href="https://www.linkedin.com/company/soulparodox/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[0.82rem] tracking-[0.02em] text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/70"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="mailto:info@soulparodox.com"
+                className="text-[0.82rem] tracking-[0.02em] text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/70"
+              >
+                info@soulparodox.com
+              </a>
+            </div>
           </div>
 
 
