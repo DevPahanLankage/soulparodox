@@ -70,7 +70,7 @@
   margin-inline: auto;
   display: flex;
   align-items: center;
-  padding: clamp(48px, 9cqh, 88px) clamp(24px, 4vw, 64px)
+  padding: clamp(56px, 10.5cqh, 100px) clamp(24px, 4vw, 64px)
     clamp(24px, 4cqh, 44px);
 }
 
@@ -78,7 +78,7 @@
   width: min(61vw, 62rem);
   margin: 0;
   color: #ffffff;
-  font-size: clamp(3.1rem, 5vw, 5.5rem);
+  font-size: clamp(3rem, 4.7vw, 5.2rem);
   font-weight: 300;
   line-height: 0.97;
   letter-spacing: -0.055em;
@@ -106,7 +106,7 @@
 @media (max-width: 1023px) {
   .heroHeadline {
     width: min(88vw, 49rem);
-    font-size: clamp(2.9rem, 6.6vw, 4.25rem);
+    font-size: clamp(2.8rem, 6.2vw, 4rem);
   }
 }
 
@@ -117,13 +117,13 @@
 
   .content {
     align-items: center;
-    padding: clamp(34px, 7cqh, 56px) clamp(16px, 4.5vw, 20px)
+    padding: clamp(38px, 8cqh, 62px) clamp(16px, 4.5vw, 20px)
       clamp(18px, 3cqh, 30px);
   }
 
   .heroHeadline {
     width: 100%;
-    font-size: clamp(2.3rem, min(11.3vw, calc(5dvh + 0.5rem)), 3.1rem);
+    font-size: clamp(2.2rem, min(10.8vw, calc(4.7dvh + 0.5rem)), 2.95rem);
     line-height: 0.96;
     letter-spacing: -0.055em;
   }
