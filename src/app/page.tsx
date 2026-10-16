@@ -12,14 +12,10 @@ import { WorldMap } from "@/components/ui/world-map";
 import styles from "./hero.module.css";
 import categoryStyles from "./product-categories.module.css";
 
-type CapacityItem = {
-  id: string;
-  label: string;
-  value: number;
-  suffix: string;
-};
-
-type CategoryArtwork = {
+type ProductCategory = {
+  name: string;
+  description: string;
+  quantity: number;
   image: string;
   alt: string;
   fit: "object-contain" | "object-cover";
@@ -122,14 +118,6 @@ export default function Home() {
       width: 1536,
       height: 1024,
     },
-  ];
-
-  const capacities: CapacityItem[] = [
-    { id: "woven", label: "Woven Top and Bottom", value: 210000, suffix: "pieces / month" },
-    { id: "knit", label: "Knit Tops and Bottoms", value: 540000, suffix: "pieces / month" },
-    { id: "outerwear", label: "Outerwear", value: 100000, suffix: "pieces / month" },
-    { id: "workwear", label: "Workwear", value: 120000, suffix: "pieces / month" },
-    { id: "headwear", label: "Headwear", value: 10000, suffix: "pieces / month" },
   ];
 
   const certifications: CertificationItem[] = [
@@ -245,142 +233,165 @@ export default function Home() {
     },
   ];
 
-  const categories = [
-    "Circular Knit",
-    "Flat Knit",
-    "Lightweight Woven",
-    "Denim",
-    "Pants",
-    "Activewear",
-    "Outerwear",
-    "Skiwear",
-    "Leather",
-    "Indoor Jackets",
-    "Chinos",
-    "Swimwear",
-    "Seamless",
-    "Headwear",
-  ];
-
-  const categoryArtwork: Record<string, CategoryArtwork> = {
-    "Circular Knit": {
+  const productCategories: ProductCategory[] = [
+    {
+      name: "Circular Knit",
+      description: "Knit tops and bottom",
+      quantity: 540000,
       image: "/images/categories/circular-knit-streetwear-editorial.webp",
       alt: "Models wearing graphic circular-knit T-shirts and casual cargo bottoms",
       fit: "object-cover",
       imagePosition: "object-center",
     },
-    "Flat Knit": {
+    {
+      name: "Flat Knit",
+      description: "Knit tops and bottom",
+      quantity: 250000,
       image: "/images/categories/flat-knit-editorial.webp",
       alt: "Model wearing layered neutral flat-knit cardigan and ribbed knitwear",
       fit: "object-cover",
       imagePosition: "object-top",
     },
-    "Lightweight Woven": {
+    {
+      name: "Lightweight Woven",
+      description: "Woven top and bottom",
+      quantity: 150000,
       image: "/images/categories/lightweight-woven.png",
       alt: "Lightweight woven shirt shown as a product sample",
       fit: "object-contain",
       imagePosition: "object-center",
     },
-    Denim: {
+    {
+      name: "Denim",
+      description: "Denim top to bottom",
+      quantity: 500000,
       image: "/images/categories/denim-editorial.webp",
       alt: "Models wearing coordinated denim jackets, tops, and jeans",
       fit: "object-cover",
       imagePosition: "object-center",
     },
-    Pants: {
+    {
+      name: "Formalwear",
+      description: "Formal Pants & Shirts",
+      quantity: 250000,
       image: "/images/categories/pants-tailoring-editorial.webp",
       alt: "Models wearing tailored trousers and coordinated formal apparel",
       fit: "object-cover",
       imagePosition: "object-center",
     },
-    Activewear: {
+    {
+      name: "Activewear",
+      description: "Tops and Bottom",
+      quantity: 300000,
       image: "/images/categories/activewear-training-editorial.webp",
       alt: "Athletes wearing performance sports bras and leggings during outdoor training",
       fit: "object-cover",
       imagePosition: "object-center",
     },
-    Outerwear: {
+    {
+      name: "Shirts",
+      description: "Fleece and Casual Shirt",
+      quantity: 150000,
       image: "/images/categories/outerwear-shackets-editorial.webp",
-      alt: "Family wearing layered plaid shackets in an autumn setting",
+      alt: "Family wearing layered plaid casual shirts in an autumn setting",
       fit: "object-cover",
       imagePosition: "object-center",
     },
-    Skiwear: {
-      image: "/images/categories/skiwear-editorial.webp",
-      alt: "Models wearing insulated ski jackets and cold-weather apparel in the mountains",
-      fit: "object-cover",
+    {
+      name: "Outerwear",
+      description: "Down, Seamseal, Padded and Bonding",
+      quantity: 100000,
+      image: "/images/categories/outerwear.png",
+      alt: "Technical hooded outerwear jacket shown as a product sample",
+      fit: "object-contain",
       imagePosition: "object-center",
     },
-    Leather: {
+    {
+      name: "Leather",
+      description: "Leather",
+      quantity: 20000,
       image: "/images/categories/leather-editorial.webp",
       alt: "Model wearing a black leather biker jacket",
       fit: "object-cover",
       imagePosition: "object-center",
     },
-    "Indoor Jackets": {
+    {
+      name: "Uniforms",
+      description: "School and Workwear uniforms",
+      quantity: 300000,
       image: "/images/categories/indoor-jackets-tailoring-editorial.webp",
-      alt: "Models wearing tailored grey indoor jackets",
+      alt: "Models wearing coordinated school-style blazers, shirts, ties, and skirts",
       fit: "object-cover",
       imagePosition: "object-center",
     },
-    Chinos: {
+    {
+      name: "Chino",
+      description: "Chino Pants",
+      quantity: 500000,
       image: "/images/categories/chinos-editorial.webp",
       alt: "Model wearing cream pleated chinos in a resort setting",
       fit: "object-cover",
       imagePosition: "object-center",
     },
-    Swimwear: {
+    {
+      name: "Swimwear",
+      description: "Swimwear",
+      quantity: 540000,
       image: "/images/categories/swimwear-editorial.webp",
       alt: "Models wearing colorful swimwear beside a pool",
       fit: "object-cover",
       imagePosition: "object-center",
     },
-    Seamless: {
-      image: "/images/categories/seamless.png",
-      alt: "Seamless base layer garments shown as product samples",
+    {
+      name: "Workwear",
+      description: "Jackets and Botttom",
+      quantity: 100000,
+      image: "/images/categories/indoor-jackets-denim.png",
+      alt: "Denim workwear jacket shown as a temporary product sample",
       fit: "object-contain",
       imagePosition: "object-center",
     },
-    Headwear: {
+    {
+      name: "Headwear",
+      description: "Headwear",
+      quantity: 100000,
       image: "/images/categories/headwear-editorial.webp",
       alt: "Model presenting embroidered fashion caps in a lifestyle setting",
       fit: "object-cover",
       imagePosition: "object-center",
     },
-  };
+    {
+      name: "Underwear",
+      description: "Underwear",
+      quantity: 500000,
+      image: "/images/categories/seamless.png",
+      alt: "Seamless underlayer top and leggings shown as a temporary product sample",
+      fit: "object-contain",
+      imagePosition: "object-center",
+    },
+    {
+      name: "Sleepwear",
+      description: "Sleepwear",
+      quantity: 200000,
+      image: "/images/categories/indoor-jackets-hoodies-editorial.webp",
+      alt: "Models wearing relaxed loungewear as a temporary sleepwear image",
+      fit: "object-cover",
+      imagePosition: "object-center",
+    },
+  ];
 
-  const categoryCapacity: Record<string, CapacityItem> = {
-    "Circular Knit": capacities[1],
-    "Flat Knit": capacities[1],
-    "Lightweight Woven": capacities[0],
-    Denim: capacities[0],
-    Pants: capacities[3],
-    Activewear: capacities[1],
-    Outerwear: capacities[2],
-    Skiwear: capacities[2],
-    Leather: capacities[2],
-    "Indoor Jackets": capacities[2],
-    Chinos: capacities[0],
-    Swimwear: capacities[1],
-    Seamless: capacities[1],
-    Headwear: capacities[4],
-  };
-
-  const productCategorySlides: CoverflowSlide[] = categories.map((category) => {
-    const artwork = categoryArtwork[category];
-    const capacity = categoryCapacity[category];
-
+  const productCategorySlides: CoverflowSlide[] = productCategories.map((category) => {
     return {
-      src: artwork.image,
-      alt: artwork.alt,
-      title: category,
+      src: category.image,
+      alt: category.alt,
+      title: category.name,
       capacity: {
-        label: `${capacity.label} capacity`,
-        value: capacity.value.toLocaleString("en-US"),
-        suffix: capacity.suffix,
+        label: `${category.description} capacity`,
+        value: category.quantity.toLocaleString("en-US"),
+        suffix: "pieces / month",
       },
-      imageFit: artwork.fit === "object-cover" ? "cover" : "contain",
-      imagePosition: artwork.imagePosition,
+      imageFit: category.fit === "object-cover" ? "cover" : "contain",
+      imagePosition: category.imagePosition,
     };
   });
 

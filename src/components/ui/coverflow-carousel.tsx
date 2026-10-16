@@ -473,7 +473,7 @@ export function CoverflowCarousel({
             aria-label={`Show ${slide.title}`}
             aria-current={index === selected ? "true" : undefined}
             onClick={() => goTo(index)}
-            className="group flex h-11 min-w-5 flex-1 items-center justify-center rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+            className="group flex h-11 min-w-0 flex-1 items-center justify-center rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-white/80"
           >
             <span
               aria-hidden="true"
