@@ -570,7 +570,6 @@ export default function Home() {
                     />
                   </div>
                   <div className={index % 2 === 0 ? "" : "lg:order-1"}>
-                    <p className="label-mono">{`0${index + 1}`}</p>
                     <h3 className="mt-3 max-w-2xl text-[clamp(1.8rem,3.3vw,3.2rem)] font-light leading-[1.03] tracking-[-0.04em]">
                       {item.title}
                     </h3>
